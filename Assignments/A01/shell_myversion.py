@@ -692,6 +692,10 @@ def cp(parts):
 
     src, dest = params
 
+    src = os.path.abspath(src)
+    dest = os.path.abspath(dest)
+
+
     try:
         shutil.copyfile(src, dest)
         output["output"] = f"Copied '{src}' to '{dest}'"
@@ -750,7 +754,7 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
+
 def mv(file1, file2):
     '''
     Rename SOURCE to DEST
@@ -786,11 +790,13 @@ def cat(file):
     import sys
 
     output = ""
+    error = ""
 
      #if no file provided, read from stdin once
     if not file:
         output = sys.stdin.read()
-        return output
+        return {"output": output, "error": error}
+    
     for f in file:
         if f == '-':
             #read from standard input here
@@ -803,8 +809,9 @@ def cat(file):
                 output += f"cat: {f}: No such file or directory\n"
             except Exception as e:
                 output += f"cat: {f}: {str(e)}\n"
-    return output
- 
+    return {"output": output, "error": error}
+
+
 def head():
     '''
     Usage: head [OPTION]... [FILE]...
@@ -1303,6 +1310,11 @@ if __name__ == "__main__":
                         result = mkdir(command)
                     elif command.get("cmd") == "history":
                         result = history(command)
+                    elif command.get("cmd") == "cp":
+                        result = cp(command)
+                    elif command.get("cmd") == "cat":
+                        result = cat(command.get("params"))
+
 
                             
                 # Printing result to screen

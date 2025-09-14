@@ -6,3 +6,11 @@ help
 ls
 pwd
 cd
+cp source.txt destination.txt
+echo "hello this is my source file." > source.txt
+cp source.txt destination.txt
+
+cat destination.txt
+
+git status
+git add .
