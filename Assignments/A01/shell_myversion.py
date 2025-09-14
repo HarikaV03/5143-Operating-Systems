@@ -53,6 +53,7 @@ import stat
 import socket 
 import getpass
 import time
+import shutil
 from time import sleep
 
 from getch import Getch
@@ -653,13 +654,103 @@ def pwd():
     output["output"] = cwd 
     return output
 
-def cp():
+def cp(parts):
     '''
     Copy SOURCE to DEST.
 
           --help        display this help and exit
     '''
+    output = {"output": None, "error": None}
 
+    input_ = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", [])
+
+    # Show help if requested
+    if "--help" in params:
+        output["output"] = (
+            "Usage: cp SOURCE DEST\n"
+            "Copy SOURCE file to DEST file.\n"
+            "Options:\n"
+            "  --help      display this help and exit"
+        )
+        return output
+
+ # cp does not accept input redirection or flags
+    if input_:
+        output["error"] = "Error: 'cp' does not support input redirection."
+        return output
+
+    if flags:
+        output["error"] = "Error: 'cp' does not support flags."
+        return output
+
+    # Must have exactly two params: source and destination
+    if len(params) != 2:
+        output["error"] = "Usage: cp SOURCE DEST"
+        return output
+
+    src, dest = params
+
+    try:
+        shutil.copyfile(src, dest)
+        output["output"] = f"Copied '{src}' to '{dest}'"
+    except FileNotFoundError:
+        output["error"] = f"Error: Source file '{src}' not found."
+    except PermissionError:
+        output["error"] = f"Error: Permission denied while copying '{src}' to '{dest}'."
+    except IsADirectoryError:
+        output["error"] = f"Error: '{src}' is a directory. Use a different method for directories."
+    except Exception as e:
+        output["error"] = f"Unexpected error: {str(e)}"
+
+    return output
+
+def parse_command(command_line):
+    """
+    Simple parser: splits the command line into parts.
+    For your actual shell, you'll have more advanced parsing.
+    Here, just split by spaces, no quotes or escapes handled.
+    """
+    tokens = command_line.strip().split()
+    if not tokens:
+        return None
+    cmd = tokens[0]
+    params = tokens[1:]
+    # For this example, no input or flags handled.
+    return {"command": cmd, "params": params, "input": None, "flags": None}
+
+def main():
+    print("Welcome to the Simple Shell!")
+    print("Type 'exit' to quit.")
+
+    while True:
+        try:
+            command_line = input("$: ")
+            if command_line.strip() == "exit":
+                print("Goodbye!")
+                break
+            
+            parts = parse_command(command_line)
+            if parts is None:
+                continue
+            
+            if parts["command"] == "cp":
+                result = cp(parts)
+                if result["error"]:
+                    print(result["error"])
+                elif result["output"]:
+                    print(result["output"])
+            else:
+                print(f"Unknown command: {parts['command']}")
+
+        except KeyboardInterrupt:
+            print("\nExiting shell.")
+            break
+
+if __name__ == "__main__":
+    main()
+    
 def mv(file1, file2):
     '''
     Rename SOURCE to DEST
