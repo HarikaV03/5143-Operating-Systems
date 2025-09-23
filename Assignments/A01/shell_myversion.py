@@ -811,8 +811,9 @@ def cat(file):
                 output += f"cat: {f}: {str(e)}\n"
     return {"output": output, "error": error}
 
+import sys
 
-def head():
+def head(parts):
     '''
     Usage: head [OPTION]... [FILE]...
     Print the first 10 lines of each FILE to standard output.
@@ -830,6 +831,114 @@ def head():
     GB 1000*1000*1000, G 1024*1024*1024, and so on for T, P, E, Z, Y, R, Q.
     Binary prefixes can be used, too: KiB=K, MiB=M, and so on.
     '''
+    output = ""
+    error = None
+    
+    input_content = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", [])
+
+    num_units = 10  # Default number of units (lines or bytes)
+    unit_type = 'lines' # Default unit type
+    skip_lines_from_end = False
+    
+    # Check for the '-n' flag and handle custom line/byte counts
+    if flags == 'n':
+        if not params:
+            error = "head: -n requires a number of lines or bytes."
+            return {"output": None, "error": error}
+
+        num_units_str = params[0]
+        params = params[1:] # Consume the number from params
+
+        # Check for a negative number to skip lines from the end
+        if num_units_str.startswith('-'):
+            skip_lines_from_end = True
+            num_units_str = num_units_str[1:]
+
+        # Check for a multiplier suffix
+        if num_units_str[-1] in ('K', 'M', 'G'):
+            unit_type = 'bytes'
+            suffix = num_units_str[-1]
+            num_units_str = num_units_str[:-1]
+
+            try:
+                num_units = int(num_units_str)
+            except ValueError:
+                error = f"head: invalid number of bytes: '{num_units_str}'"
+                return {"output": None, "error": error}
+            
+            # Apply multiplier
+            if suffix == 'K':
+                num_units *= 1024
+            elif suffix == 'M':
+                num_units *= 1024**2
+            elif suffix == 'G':
+                num_units *= 1024**3
+        else:
+            # Handle a simple line count without a multiplier
+            try:
+                num_units = int(num_units_str)
+            except ValueError:
+                error = f"head: invalid line count: '{num_units_str}'"
+                return {"output": None, "error": error}
+    
+    # Process piped input
+    if input_content:
+        if unit_type == 'bytes':
+            if skip_lines_from_end:
+                output = input_content[:-num_units]
+            else:
+                output = input_content[:num_units]
+        else: # lines
+            lines = input_content.splitlines()
+            if skip_lines_from_end:
+                lines_to_print = lines[:-num_units]
+            else:
+                lines_to_print = lines[:num_units]
+            output = "\n".join(lines_to_print)
+            
+        return {"output": output, "error": error}
+
+    # Process file input
+    if not params:
+        error = "head: no files specified and no input from a pipe."
+        return {"output": None, "error": error}
+
+    for f in params:
+        # If there's more than one file, print a header
+        if len(params) > 1:
+            output += f"==> {f} <==\n"
+
+        try:
+            if unit_type == 'bytes':
+                with open(f, 'rb') as file_handle: # use binary mode for bytes
+                    if skip_lines_from_end:
+                        file_handle.seek(0, 2)
+                        size = file_handle.tell()
+                        file_handle.seek(max(0, size - num_units), 0)
+                        output += file_handle.read().decode('utf-8')
+                    else:
+                        output += file_handle.read(num_units).decode('utf-8')
+            else: # lines
+                with open(f, 'r') as file_handle:
+                    lines = file_handle.readlines()
+                    
+                    if skip_lines_from_end:
+                        lines_to_print = lines[:-num_units]
+                    else:
+                        lines_to_print = lines[:num_units]
+                        
+                    for line in lines_to_print:
+                        output += line
+        except FileNotFoundError:
+            error = f"head: cannot open '{f}': No such file or directory"
+            return {"output": None, "error": error}
+        except Exception as e:
+            error = f"head: {f}: {str(e)}"
+            return {"output": None, "error": error}
+    
+    return {"output": output.strip(), "error": error}
 
 def tail():
     '''
@@ -1293,7 +1402,7 @@ if __name__ == "__main__":
                 while len(command_list) != 0:
             
                     # Pop first command off of the command list
-                    command = command_list.pop(0)
+                    commalsnd = command_list.pop(0)
                     
                     # Kill execution if error
                     if result["error"]:
@@ -1314,6 +1423,8 @@ if __name__ == "__main__":
                         result = cp(command)
                     elif command.get("cmd") == "cat":
                         result = cat(command.get("params"))
+                    elif command.get("cmd") == "head":
+                        result = head(command)
 
 
                             
