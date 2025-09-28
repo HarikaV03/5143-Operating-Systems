@@ -53,14 +53,20 @@ import stat
 import socket 
 import getpass
 import time
-from time import sleep
+import subprocess
+#from time import sleep
 
 from getch import Getch
 from colorama import init, Fore, Style
-import requests
+#import requests
 #from rich import print
 import shutil
 import re
+import termios
+
+# capture terminal settings before calling getch
+fd = sys.stdin.fileno()
+old_settings = termios.tcgetattr(fd)
 
 getch = Getch()  # create a new instance of class Getch
 # print(prompt)
@@ -84,26 +90,27 @@ def WelcomeMessage():
     print()
     print(f"{Fore.GREEN}Welcome to the Simple Shell!")
     print("---------------------------------------------------------------------")
-    print(f"{Fore.GREEN}To see avaiable commands, type 'help' [Need to implement help command].")
+    print(f"{Fore.GREEN}To see avaiable commands, type 'commands'.")
     print(f"{Fore.GREEN}Type '<command> --help' for information on a specific command.")
     print(f"{Fore.GREEN}Type 'exit' or ctrl + c to quit.")
     print(f"{Fore.GREEN}Designed and implemented by Tim Haxton, Harika Vemulapalli, and Cooper Wolf.")
     print(f"{Fore.GREEN}Don't steal our code, we'll sue.")
-    print("---------------------------------------------------------------------")
+    print(f"---------------------------------------------------------------------{Style.RESET_ALL}")
     print()
 
-def get_terminal_width():
+def get_terminal_size():
     '''
     Returns the width of the terminal in characters.
     '''
     try:
         size = shutil.get_terminal_size()
-        return size.columns
+        return size.lines, size.columns
     except OSError:
         # Handle cases where no terminal is connectec (e.g., running in an IDE
         # without a console)
         # You can return a default value or raise a custom error here.
-        return 80  # Default to 80 columns if size cannot be determined
+        return 80, 80  # Default to 80 lines and 80 columns if size 
+                       # cannot be determined
 
 def exit():
     '''
@@ -115,7 +122,7 @@ def exit():
     print(f"{Fore.GREEN}Okay Bye")  # moves next command line to new line
     raise SystemExit
 
-# Helper function for ls_with_args
+# Helper function for ls
 def color_filename(item, full_path):
     '''
     Returns a colored string for a filename based on its type.
@@ -136,7 +143,7 @@ def color_filename(item, full_path):
     # Leaving all other itms default color
     return item
     
-# Helper functin for ls_with_args
+# Helper functin for ls
 def format_long_listing(full_path, human = False):
     '''
     Returns detailed metadata for a file in "long listing" format.
@@ -167,7 +174,7 @@ def format_long_listing(full_path, human = False):
     return [permissions, links, owner, group, size, mod_time, name]
     #return f"{permissions} {links} {owner} {group} {size} {mod_time} {name}"
 
-# Helper function for ls_with_args
+# Helper function for ls
 def get_directory_items(directory = None, include_hidden = False):
     '''
     Returns a list of items in the current directory.
@@ -201,6 +208,7 @@ def get_directory_items(directory = None, include_hidden = False):
                 
         return non_hidden_items
 
+# Helper function for ls
 def human_readable(size):
     """
     Convert a file size in bytes to a human-readable format.
@@ -264,8 +272,9 @@ def ls(parts):
     # Used to store directory from params
     ls_directory = ""
     
+    # ls should not have any input
     if input:
-        pass
+        output["error"] = f"{Fore.RED}Error: {parts.get("cmd")} should not have input.{Style.RESET_ALL} \nRun 'ls --help' for more info."
 
     # If user wants to ls a certain directory, grab the directory name if it's a directory
     if len(params) == 1:
@@ -323,7 +332,7 @@ def ls(parts):
         all_directory_list = get_directory_items(ls_directory, include_hidden = True)
         
         # Using -h alone prints the same as no args
-        if option == "h": 
+        if option == "-h": 
             
             # list to store items
             items = []
@@ -343,7 +352,7 @@ def ls(parts):
                 
                 
         # Using -a alone or with -h prints all files including hidden
-        elif option in ("a","ah", "ha"):
+        elif option in ("-a","-ah", "-ha"):
             
             # list to store directory items
             items = []
@@ -365,7 +374,7 @@ def ls(parts):
             return output
             
         # Using -l alone
-        elif option == "l":
+        elif option == "-l":
             
             items = []
             total_size = 0
@@ -377,7 +386,7 @@ def ls(parts):
                 total_size += file_info.st_blocks
             
             # Printing size of directory
-            print("total", total_size // 2)
+            total_size = total_size // 2
             
             # Print details for each file
             for item in directory_list:
@@ -391,17 +400,17 @@ def ls(parts):
             
             format_list = []
             for item in items:
-                line = f"{item[0]:<10} {item[1]:<3}{item[2]:<8}{item[3]:<8}{item[4]:>8} {item[5]:<12} {item[6]}"
+                line = f"{item[0]:<10} {item[1]:<3}{item[2]:<8} {item[3]:<8}{item[4]:>8} {item[5]:<12} {item[6]}"
                 format_list.append(line)
                 
             # Convert to string and return
-            result = "\n".join(format_list)
+            result = f"Total size: {total_size}\n" + "\n".join(format_list)
             output["output"] = result
             return output
         
             
         # Using -al or -la prints all files in long format
-        elif option in ("al", "la"):
+        elif option in ("-al", "-la"):
                 
             total_size = 0
             items = []
@@ -412,7 +421,7 @@ def ls(parts):
                 file_info = os.stat(full_path)
                 total_size += file_info.st_blocks
             
-            print("total", total_size // 2)
+            total_size = total_size // 2
             
             # Print details for each file
             for item in all_directory_list:
@@ -427,16 +436,16 @@ def ls(parts):
             # formatting list before converting to string
             format_list = []
             for item in items:
-                line = f"{item[0]:<10} {item[1]:<3}{item[2]:<8}{item[3]:<8}{item[4]:>8} {item[5]:<12} {item[6]}"
+                line = f"{item[0]:<10} {item[1]:<3}{item[2]:<8} {item[3]:<8}{item[4]:>8} {item[5]:<12} {item[6]}"
                 format_list.append(line)
             
-            # Converting to string and returning
-            result = "\n".join(format_list)
+            # Convert to string and return
+            result = f"Total size: {total_size}\n" + "\n".join(format_list)
             output["output"] = result
             return output
             
         # Using -lh or -hl prints files in long format with human readable sizes
-        elif option in ("lh", "hl"):
+        elif option in ("-lh", "-hl"):
             
             total_size = 0
             items = []
@@ -448,7 +457,7 @@ def ls(parts):
                 total_size += file_info.st_blocks
             
             # st_blocks * 512 = byte
-            print("total", human_readable(total_size * 512))
+            total_size = human_readable(total_size * 512)
             
             # Print details for each file
             for item in directory_list:
@@ -463,16 +472,16 @@ def ls(parts):
             # formatting list before converting to string
             format_list = []
             for item in items:
-                line = f"{item[0]:<10} {item[1]:<3}{item[2]:<8}{item[3]:<8}{item[4]:>8} {item[5]:<12} {item[6]}"
+                line = f"{item[0]:<10} {item[1]:<3}{item[2]:<8} {item[3]:<8}{item[4]:>8} {item[5]:<12} {item[6]}"
                 format_list.append(line)
             
-            # Converting to string and returning
-            result = "\n".join(format_list)
+            # Convert to string and return
+            result = f"Total size: {total_size}\n" + "\n".join(format_list)
             output["output"] = result
             return output
             
         # Using -alh or any combo of those three prints all files in long format with human readable sizes
-        elif option in ("alh", "ahl", "lah", "lha", "hal", "hla"):
+        elif option in ("-alh", "-ahl", "-lah", "-lha", "-hal", "-hla"):
             
             total_size = 0
             items = []
@@ -484,7 +493,7 @@ def ls(parts):
                 total_size += file_info.st_blocks
             
             # st_blocks * 512 = byte
-            print("total", human_readable(total_size * 512))
+            total_size = human_readable(total_size * 512)
             
             # Print details for each file
             for item in all_directory_list:
@@ -499,11 +508,52 @@ def ls(parts):
             # formatting list before converting to string
             format_list = []
             for item in items:
-                line = f"{item[0]:<10} {item[1]:<3}{item[2]:<8}{item[3]:<8}{item[4]:>8} {item[5]:<12} {item[6]}"
+                line = f"{item[0]:<10} {item[1]:<3}{item[2]:<8} {item[3]:<8}{item[4]:>8} {item[5]:<12} {item[6]}"
                 format_list.append(line)
             
-            # Converting to string and returning
-            result = "\n".join(format_list)
+            # Convert to string and return
+            result = f"Total size: {total_size}\n" + "\n".join(format_list)
+            output["output"] = result
+            return output
+        
+        # Using -merica prints files in red white and blue 
+        elif option == "-merica":
+
+            total_size = 0
+            items = []
+            
+            # Calculate total size of all files in directory
+            for item in all_directory_list:
+                full_path = os.path.join(ls_directory or os.getcwd(), item)
+                file_info = os.stat(full_path)
+                total_size += file_info.st_blocks
+            
+            # st_blocks * 512 = byte
+            total_size = human_readable(total_size * 512)
+            
+            # Print details for each file
+            for item in all_directory_list:
+                    
+                # Getting item info and adding to list
+                full_path = os.path.join(ls_directory or os.getcwd(), item)
+                items.append(format_long_listing(full_path, human = True))
+                    
+            # Returning items sorted by filename
+            items = sorted(items, key=lambda x: x[-1].lower())
+            
+            # Color the lines red white and blue | Got this code from Claude
+            colors = [Fore.RED, Fore.WHITE, Fore.BLUE]
+            format_list = []
+            for i, item in enumerate(items):
+                line = f"{item[0]:<10} {item[1]:<3}{item[2]:<8} {item[3]:<8}{item[4]:>8} {item[5]:<12} {item[6]}"
+        
+                # Apply color cycling through red, white, blue for each line
+                color = colors[i % 3]
+                colored_line = color + line + Style.RESET_ALL
+                format_list.append(colored_line)
+            
+            # Convert to string and return
+            result = f"Total size: {total_size}\n" + "\n".join(format_list)
             output["output"] = result
             return output
             
@@ -616,17 +666,20 @@ def cd(parts):
     
         
     # User wants to go to home directory
-    if str_params == "":
+    if str_params == "" or str_params == "~":
         homedir = os.path.expanduser("~")
         os.chdir(homedir)
+        return output
         
-        # User wants to go to parent directory
+    # User wants to go to parent directory
     if str_params == "..":
         os.chdir("..")
+        return output
             
     # User wants to go to differnt directory
     elif os.path.isdir(str_params):
         os.chdir(str_params)
+        return output
             
     # If path doesn't exist and params isn't empty
     elif not os.path.isdir(str_params) and str_params != "":
@@ -635,7 +688,7 @@ def cd(parts):
     # Returning output dictionary
     return output
 
-def pwd():
+def pwd_():
     '''
     Print the name of the current working directory.
 
@@ -653,21 +706,47 @@ def pwd():
     output["output"] = cwd 
     return output
 
-def cp():
+def cp(parts):
     '''
     Copy SOURCE to DEST.
 
           --help        display this help and exit
     '''
 
-def mv(file1, file2):
-    '''
-    Rename SOURCE to DEST
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)
+    
+    output = {"output" : None, "error" : None}
 
-          --help        display this help and exit
-    '''
+    if input:
+        output["error"] = "Error. Command should not have an input."
+        return output
+    
+    if flags:
+        output["error"] = "Error. Command doesn't take flags."
+        return output
+    
+    if len(params) != 2:
+        output["error"] = "Error. Command takes two parameters."
+        return output
 
-def rm():
+    try:
+        shutil.copy(params[0], params[1])
+    except FileNotFoundError:
+        output["error"] = f"Error: File {params[0]} not found."
+    except PermissionError:
+        output["error"] = f"Error: Permission denied when copying {params[0]} to {params[1]}."
+    except shutil.SameFileError:
+        output["error"] = f"Error: Source and destination {params[0]} are the same file."
+    except IsADirectoryError:
+        output["error"] = f"Error: One of the paths provided is a directory, not a file."
+    except Exception as e:
+        output["error"] = f"An unexpected error occurred: {e}"
+
+    return output
+
+def rm(parts):
     '''
     Usage: rm [OPTION]... [FILE]...
     Remove (unlink) the FILE(s).
@@ -684,14 +763,133 @@ def rm():
         rm ./-foo
     '''
 
-def cat(file):
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)
+    
+    output = {"output" : None, "error" : None}
+
+    if input:
+        output["error"] = "Error. Command should not have an input."
+        return output
+    
+    if flags == "-r":
+        try:
+            shutil.rmtree(params[0])
+        except FileNotFoundError:
+            output["error"] = f"Error: File {params[0]} not found."
+        except Exception as e:
+            output["error"] = f"An error occurred: {e}"
+    elif flags == "--":
+        try:
+            os.remove(params[0])
+        except FileNotFoundError:
+            output["error"] = f"Error: File {params[0]} not found."
+        except Exception as e:
+            output["error"] = f"An error occurred: {e}"
+    else:
+        if os.path.isdir(params[0]):
+            try:
+                os.rmdir(params[0])
+            except FileNotFoundError:
+                output["error"] = f"Error: File {params[0]} not found."
+            except OSError as e:
+                output["error"] = f"Error deleting directory {params[0]}: {e}"
+            except Exception as e:
+                output["error"] = f"An error occurred: {e}"
+        else:
+            try:
+                os.remove(params[0])
+            except FileNotFoundError:
+                output["error"] = f"Error: File {params[0]} not found."
+            except Exception as e:
+                output["error"] = f"An error occurred: {e}"
+    
+    return output
+
+def mv(parts):
+    '''
+    Rename SOURCE to DEST
+
+          --help        display this help and exit
+    '''
+
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)
+    
+    output = {"output" : None, "error" : None}
+
+    if input:
+        output["error"] = "Error. Command should not have an input."
+        return output
+    
+    if flags:
+        output["error"] = "Error. Command doesn't take flags."
+        return output
+    
+    if params is None or len(params) != 2:
+        output["error"] = "Error. Command takes two parameters."
+        return output
+    
+    try:
+        shutil.move(params[0], params[1])
+    except FileNotFoundError:
+        output["error"] = f"Error: File {params[0]} not found."
+    except PermissionError:
+        output["error"] = f"Error: Permission denied when moveing {params[0]} to {params[1]}."
+    except Exception as e:
+        output["error"] = f"An unexpected error occurred: {e}"
+
+    return output    
+
+def cat(parts):
     '''
     Usage: cat [FILE]...
 
     Example:
-        cat f - g   Output f's contents, t hen standard input, then g's contents.
+        cat f - g   Output f's contents, then standard input, then g's contents.
         cat         Copy standard input to standard output.
     '''
+    
+    # Getting parsed parts
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)
+    
+    # Dictionary to return
+    output = {"output": None, "error": None}
+
+    # Catching bad commands
+    if input or flags:
+        output["error"] = f"{Fore.RED}Error: 'cat' should not have input or flags.{Style.RESET_ALL}\nRun 'cat --help' for more info."
+        return output
+    
+    # if no params, set file to None and read from stdin, else read file
+    if not params:
+        file = None
+    else:
+        file = params
+
+     #if no file provided, read from stdin once
+    if not file:
+        output["output"] = sys.stdin.read()
+        return output
+    
+    # Loop through files and read them
+    for f in file:
+        if f == '-':
+            #read from standard input here
+            output["output"] = sys.stdin.read()
+        else:
+            try:
+                with open(f,'r') as file_handle:
+                    output["output"] = file_handle.read()
+            except FileNotFoundError:
+                output["error"] = f"cat: {f}: No such file or directory\n"
+            except Exception as e:
+                output["error"] = f"cat: {f}: {str(e)}\n"
+    return output
 
 def head():
     '''
@@ -727,28 +925,222 @@ def tail():
     Binary prefixes can be used, too: KiB=K, MiB=M, and so on.
     '''
 
-def grep():
+def grep(parts):
     '''
     Usage: grep PATTERNS [FILE]...
     Search for PATTERNS in each FILE.
     Example: grep 'hello world' menu.h main.c
     PATTERNS can contain multiple patterns separated by newlines.
 
-    When FILE is '-', read standard input. With no FILE, read '.' if
-    recursive, '-' otherwise.
-    Exit status is 0 if any line is selected, 1 otherwise;
-    if any error occurs, the exit status is 2.
+    If no file is given, it will match with what has been received as
+    input from previous command. There can only be one pattern.
+    
+    Available flags:
+    -i : ignore case
+    -l : only print names of files with matching lines
+    -c : only print a count of matching lines per file 
     '''
+    
+    # These are lists
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)
+    
+    # Dictionary to return
+    output = {"output" : None, "error" : None}
+    
+    # list that stores lines that contain matches of patter
+    line_match = []
+    
+    # storing files that match the pattern
+    file_match = []
+    
+    # list to store split params
+    files = []
+    pattern_parts = []
+    
+    # Variable to store count of matches
+    count_match = 0
+        
+    # if -i in flag, ignore case (true), else case sensitive (false)
+    flags = flags or ""
+    i_flag = re.IGNORECASE if "i" in flags else 0
+    
+    # Variable to store lines with matches
+    highlighted = ""
+    
+    # Catching bad commands
+    if flags not in ["", "-l", "-i", "-c", "-li", "-il", "-lc", "-cl", "-ic", "-ci", "-lic", "-lci", "-ilc", "-icl", "-cli", "-cil"]:
+        output["error"] = f"{Fore.RED}Error: 'grep' only takes flags '-l', '-i', '-c'.{Style.RESET_ALL} \nRun 'grep --help' for more info."
+        return output
 
-def wc():
+    if not params:
+        output["error"] = f"{Fore.RED}Error: 'grep' must have a pattern to match.{Style.RESET_ALL} \nRun 'grep --help' for more info."
+        return output
+    
+    if not input and len(params) < 2:
+        output["error"] = f"{Fore.RED}Error: 'grep' is missing a pattern or file.{Style.RESET_ALL} \nRun 'grep --help' for more info."
+        return output
+    
+    if input and len(params) > 2:
+        output["error"] = f"{Fore.RED}Error: 'grep' cannot process input and a parameter(s).{Style.RESET_ALL} \nRun 'grep --help' for more info."
+        return output
+    
+    if input and len(params) < 1:
+        output["error"] = f"{Fore.RED}Error: 'grep' has input, but was also given a file to process. Must be one or the other.{Style.RESET_ALL} \nRun 'grep --help' for more info."
+        return output
+    
+    if len(params) > 50:
+        output["error"] = f"{Fore.RED}Error: Params list too long.{Style.RESET_ALL} \nRun 'grep --help' for more info."
+    
+    # Loop through params to separate files and pattern
+    for param in params:
+        clean = param.strip("'\"")
+        
+        # If param is file append to files list | logic From ChatGPT
+        if os.path.isfile(param) or os.path.exists(clean):
+            files.append(param)
+            
+        # Else param is part of the pattern
+        else:
+            pattern_parts.append(param)
+            
+    pattern = " ".join(pattern_parts)  
+        
+    # Convert input to string
+    if input:
+        input = "".join(input)
+        input = input.strip("'")
+    
+    # Store the input or files to process on
+    # one of them must be None due to previous checks
+    source = input or files
+    
+    if not source:
+        output["error"] = f"{Fore.RED}Error: Could not get the file or string to process.{Style.RESET_ALL} \nRun 'grep --help' for more info."
+        return output
+    
+    # if source is a string
+    if isinstance(source, str):
+        
+        # Split the lines of the source and process
+        for line in source.splitlines():
+            
+            # Searching for pattern in line
+            match = re.search(re.escape(pattern), line, i_flag)
+            
+            # if no flags, and pattern matches a line, highlight it and store the whole line
+            if match and ("i" in flags or not flags):
+                
+                # Highlight all matches of the pattern in yellow and store the whole line
+                # Using lambda to perserve original case | Got from ChatGPT
+                highlighted = re.sub(re.escape(pattern), lambda m: f"{Fore.YELLOW}{m.group(0)}{Style.RESET_ALL}", line, flags=i_flag)
+                line_match.append(highlighted)
+            
+            # -l flag (list file names once if match found)
+            if match and "l" in flags:
+                output["output"] = f"{Fore.MAGENTA}(standard input){Style.RESET_ALL}"
+                return output
+
+            # -c flag (count matching lines)
+            if match and "c" in flags:
+                count_match += 1
+        
+        # If -c in flag, only return count of matches
+        if "c" in flags:
+            output["output"] = str(count_match)
+            
+        # If line_match was filled, return it
+        elif line_match:
+            output["output"] = "\n".join(line_match)
+        else:
+            output["error"] = f"{Fore.YELLOW}No matches found for '{pattern}'{Style.RESET_ALL}"
+            
+        # return output
+        return output
+ 
+        
+    # Determine if item is a file
+    for file in source:
+        if os.path.isfile(file):
+            # Seeing if file is an absolute path
+            if os.path.isabs(file):
+            
+                # Getting the absolute path from argument
+                path = file
+
+            # if relative path, join with current working directory
+            elif not os.path.isabs(file):
+            
+                # Building absolute path
+                new_dir = file
+                cwd     = os.getcwd()
+                path    = os.path.join(cwd, new_dir)
+                
+            # Match pattern with contents in file
+            if path:
+                with open(path, 'r') as file_:
+                    for line in file_:
+                        
+                        # Searching for pattern in line
+                        match = re.search(re.escape(pattern), line, i_flag)
+                            
+                        # if no flags, and pattern matches a line, highlight it and store the whole line
+                        if match and ("i" in flags or not flags):
+                
+                            # Highlight all matches of the pattern in yellow and store the whole line
+                            # Using lambda to perserve original case | Got from ChatGPT
+                            highlighted = re.sub(re.escape(pattern), lambda m: f"{Fore.YELLOW}{m.group(0)}{Style.RESET_ALL}", line, flags=i_flag)
+
+                        # if -l in flag, only return the name of the file if pattern matches
+                        if match and "l" in flags:
+                            if file not in file_match:
+                                file_match.append(file)
+            
+                        # if -c in flag, count numbers of lines that contain the pattern
+                        if match and "c" in flags:
+                            count_match += 1
+                            
+                        # If multiple files, include the file name in output
+                        if len(files) > 1 and "l" not in flags and "c" not in flags and highlighted not in line_match:
+                            line_match.append(f"{Fore.MAGENTA}{file}{Style.RESET_ALL}: {highlighted}")
+                            
+                        # If only one file, do not include that file name in output
+                        elif len(files) == 1 and "l" not in flags and "c" not in flags and highlighted not in line_match:
+                            line_match.append(f"{highlighted}")
+                        
+            # Error if one of the files does not exist
+            else:
+                output["error"] = f"{Fore.RED}Error: {file} is not a file.{Style.RESET_ALL} \nRun 'grep --help' for more info."
+                return output
+                        
+    # If -l flag, only return files that matched
+    if file_match:
+        result = "\n".join(f"{Fore.MAGENTA}{f}{Style.RESET_ALL}" for f in file_match)
+        output["output"] = result
+        return output
+    
+    # If -c in flag, only return count of matches
+    if "c" in flags:
+        output["output"] = str(count_match)
+            
+    # If line_match was filled, return it
+    elif line_match:
+        output["output"] = "".join(line_match)
+                        
+    else:
+        output["error"] = f"{Fore.YELLOW}No matches found for '{pattern}'{Style.RESET_ALL}"
+            
+    # return output
+    return output
+
+def wc(parts):
     '''
     Usage: wc [OPTION]... [FILE]...
       or:  wc [OPTION]... --files0-from=F
     Print newline, word, and byte counts for each FILE, and a total line if
     more than one FILE is specified. A word is a non-zero-length sequence of
     printable characters delimited by a white space.
-
-    With no FILE, or when FILE is -, read standard input.
 
     The options below may be used to select which counts are printed, always in
     the following order: newline, word, character, byte, maximum line length.
@@ -761,12 +1153,1014 @@ def wc():
                                 When can be: auto, always, only, never
             --help      display this help and exit
     '''
+    
+    # Parsing parts dictionary
+    input  = parts.get("input", None)
+    flags  = parts.get("flags", None)
+    params = parts.get("params", None)
+    
+    # Dictionary to store output
+    output = {"output" : None, "error" : None}
+    
+    # If multiple parameters
+    if len(params) > 1:
+        output["error"] = f"{Fore.RED}Error: 'wc' can only take one parameter.{Style.RESET_ALL} \nRun 'wc --help' for more info."
+        return output
+    
+    # Variables to store count
+    line_count = 0
+    word_count = 0
+    char_count = 0
+    
+    # Convert params to string
+    if params:
+        params = "".join(params)
+        params = params.strip("'")
+        
+    # Convert input to string
+    if input:
+        input = "".join(input)
+        input = input.strip("'")
+        
+    # Filtering out bad commands
+    if not params and not input:
+        output["error"] = f"{Fore.RED}Error: 'wc' needs either an input file or parameter file to process.{Style.RESET_ALL} \nRun 'wc --help' for more info."
+        return output
+    if params and input:
+        output["error"] = f"{Fore.RED}Error: 'wc' needs either an input file or parameter file to process.{Style.RESET_ALL} \nRun 'wc --help' for more info."
+        return output
+    if flags and flags not in ["-w", "-l", "-wl", "-lw"]:
+        output["error"] = f"{Fore.RED}Error: {flags} is not a viable flag.{Style.RESET_ALL} Run 'wc --help' for flag options"
+        return output
+    
+    # Checking if input or params in a file.
+    item = input or params
+    
+    # Determine if item is a file
+    if os.path.isfile(item):
+        
+        # Seeing if file is an absolute path
+        if os.path.isabs(item):
+            
+            # Getting the absolute path from argument
+            path = item
 
-def chmod():
+        # if relative path, join with current working directory
+        elif not os.path.isabs(item):
+            
+            # Building absolute path
+            new_dir = item
+            cwd     = os.getcwd()
+            path    = os.path.join(cwd, new_dir)
+            
+        # If user ran a pipe and wc section only contains wc
+        # Example: ls | wc -w or wc -l fruit.txt
+        if flags and path:
+            
+            # Get countswhat
+            with open(path, 'r') as file:
+                for line in file:
+                    if "l" in flags:
+                        line_count += 1
+                    if "w" in flags:
+                        words = line.split()
+                        word_count += len(words)
+            
+            # Getting correct data to output | Code from ChatGPT           
+            output_values = []
+            output_values.append(str(line_count) if "l" in flags else None)
+            output_values.append(str(word_count) if "w" in flags else None)
+                            
+            # Store results to output and return | Code from ChatGPT
+            output["output"] = " ".join(filter(None, output_values))
+            return output
+            
+        # If user ran wc with flags
+        # Example wc fruit.txt or ls | wc
+        if not flags and path:
+            
+            # Get counts
+            with open(path, 'r') as file:
+                for line in file:
+                    line_count += 1
+                    words = line.split()
+                    word_count += len(words)
+                    char_count += len(line)
+                            
+            # Store results to output and return
+            output["output"] = f"{line_count} {word_count} {char_count} {input or params}"
+            return output            
+            
+    # Determine if item is a string
+    elif isinstance(item, str) and input and not params:
+
+        # Removes characters used to color text
+        ansi_escape = re.compile(r'\x1b\[[0-9;]*m')
+        item = ansi_escape.sub('', item)
+        
+        # Split string in lines first
+        lines = item.splitlines()
+    
+        # If user ran a pipe and wc section only contains wc
+        # Example: ls | wc -w or wc -l fruit.txt
+        if flags and item:
+            
+            # Getting line count
+            if "l" in flags:
+                
+                # If item has multiple lines get length
+                if len(lines) > 1:
+                    line_count = len(lines)
+                    
+                # Else its just one line
+                else:
+                    line_count = 1
+                    
+            # Getting word count
+            if "w" in flags:
+                
+                # Count words in each line
+                if len(lines) > 1:
+                    for line in lines:
+                        for words in line.split():
+                            word_count += 1
+                            
+                # Only one line      
+                else:
+                    word_count = len(lines)
+                            
+            # Getting correct data to output | Code from ChatGPT           
+            output_values = []
+            output_values.append(str(line_count) if "l" in flags else None)
+            output_values.append(str(word_count) if "w" in flags else None)
+                            
+            # Store results to output and return | Code from ChatGPT
+            output["output"] = " ".join(filter(None, output_values))
+            return output
+            
+        # If user ran wc with flags
+        # Example wc fruit.txt or ls | wc
+        if not flags and item:
+            
+            # If item has multiple lines cound them
+            if len(lines) > 1:
+                line_count = len(lines)
+                
+            # If item has one line only add one
+            else:
+                line_count = 1
+                
+            # Count words in each line
+            if len(lines) > 1:
+                for line in lines:
+                    for words in line.split():
+                        print(words)
+                        word_count += 1
+                        
+            else:
+                word_count = len(lines)
+            
+            # Count all characters in string
+            char_count = len(item)
+                            
+            # Store results to output and return
+            output["output"] = f"{line_count} {word_count} {char_count}"
+            return output
+    
+    # item was not a string or file
+    else:
+        output["error"] = f"{Fore.RED}Error: {item}: No such file or directory.{Style.RESET_ALL}\nRun 'wc --help' for more info."
+        return output
+
+def sort(parts):
     '''
-    Usage: chmod OCTAL-MODE FILE...
+    Sort lines of text files.
+
+    Usage: sort [OPTION]... [FILE]...
+    Sort the lines of each FILE, input from previous command, to standard output.
+
+    With no FILE, Read from input (previous command).
+
+    Available options:
+        -r, --reverse                reverse the result of comparisons
+        -n, --numeric-sort           compare according to string numerical value
+        -a, --alphabetic             consider only alphabetic characters
+        
+        note: by default, sort alphabetically (lexicographically)
+              --help     display this help and exit
+    '''
+    
+    # Getting parsed parts
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)
+    
+    # Dictionary to return
+    output = {"output" : None, "error" : None}
+    
+    # List to store sorted data
+    sorted_list = []
+
+    # Filter out bad commands
+    if (input and params) or (not input and not params):
+        output["error"] = f"{Fore.RED}Error: 'sort' needs either input or params.{Style.RESET_ALL} \nRun 'sort --help' for more info."
+        return output
+        
+    if flags not in ["-r", "-n", "-a", None]:
+        output["error"] = f"{Fore.RED}Error: Invalid flag: '{flags}'.{Style.RESET_ALL} \nRun 'sort --help' for more info."
+        return output
+        
+    # Storing the input or param into data
+    data = input or params
+    
+    # Converting data from list to string
+    data = "".join(data)
+    data = data.strip("'")
+    
+    # Process if data is file
+    if os.path.isfile(data):
+        
+        # Seeing if file is an absolute path
+        if os.path.isabs(data):
+            
+            # Getting the absolute path from argument
+            path = data
+
+        # if relative path, join with current working directory
+        elif not os.path.isabs(data):
+            
+            # Building absolute path
+            new_dir = data
+            cwd     = os.getcwd()
+            path    = os.path.join(cwd, new_dir)
+                
+        # Match patter with contents in file
+        if path:
+            
+            # From Chat
+            with open(path, 'r') as file_:
+                for line in file_:
+                    if line.endswith("\n"):
+                        sorted_list.append(line)
+                    else:
+                        line = line + "\n"
+                        sorted_list.append(line)
+                    
+            # Sort alphebetically
+            if flags in ["-a", None]:
+                sorted_list.sort()
+            
+            # Reverse list
+            elif flags == "-r":
+                sorted_list.sort(reverse=True)
+                
+            # Sort numerically
+            elif flags == "-n":
+                
+                try:
+                    sorted_list.sort(key=int)
+                except ValueError:
+                    output["error"] = f"{Fore.RED}Error: 'sort -n' can only be used on files with numbers.{Style.RESET_ALL} \nRun 'sort --help' for more info."
+                    return output
+                
+        # Error if path not found
+        else:
+            output["error"] = f"{Fore.RED}Error: {data} is not a file.{Style.RESET_ALL} \nRun 'sort --help' for more info."
+            return output
+                
+        # Converting to string and returning
+        result = "".join(sorted_list)
+        output["output"] = result
+        return output
+    
+    # if source exists and is a string
+    elif isinstance(data, str):
+        
+        # Removes characters used to color text in order to properly sort
+        ansi_escape = re.compile(r'\x1b\[[0-9;]*m')
+        data = ansi_escape.sub('', data)       
+        
+        # Split the lines of the string and append to list
+        if "\n" in data and len(data) > 1:
+            for line in data.splitlines():
+                
+                # Avoid empty lines
+                if line.strip():
+                    sorted_list.append(line)
+                
+        # If data is one line, split by word
+        elif "\n" not in data and len(data) > 1:
+            for line in data.splitlines():
+                for word in line.split():
+                    sorted_list.append(word)
+                    
+        # If data is one character
+        else:
+            output["error"] = f"{Fore.RED}Error: 'sort' was given nothing to sort.{Style.RESET_ALL} \nRun 'sort --help' for more info."
+            return output
+                
+        # Sort alphebetically or numerically
+        if flags in ["-a", None]:
+            sorted_list.sort()
+            
+        # Reverse list
+        if flags == "-r":
+            sorted_list.sort(reverse=True) 
+            
+        # Sort numerically
+        if flags == "-n":
+            try:
+                sorted_list.sort(key=int)
+            except ValueError:
+                output["error"] = f"{Fore.RED}Error: 'sort -n' can only be used on files with numbers.{Style.RESET_ALL} \nRun 'sort --help' for more info."
+                return output              
+        
+        # Converting to string and returning
+        result = "\n".join(sorted_list)
+        output["output"] = result
+        return output
+    
+    # Data was not a string or file
+    else:
+        output["error"] = f"{Fore.RED}Error: {data} could not be properly handled.{Style.RESET_ALL} \nRun 'sort --help' for more info."
+        return output 
+
+def chmod(parts):
+    '''
     Change the mode of each FILE to MODE.
+    
+            The MODE is a three-digit octal number representing the permissions
+            for the user, group, and others, respectively. Each digit is a sum of:
+            4 (read), 2 (write), and 1 (execute).
+            
+            For example, to set read, write, and execute permissions for the user,
+            and read and execute permissions for the group and others, use 755:
+            chmod 755 filename
+    
+            The following table shows the permission values:
+            0    ---    
+            1    --x
+            2    -w-
+            3    -wx
+            4    r--
+            5    r-x
+            6    rw-
+            7    rwx
     '''
+
+    # Getting parsed parts
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)
+    
+    # Dictionary to return
+    output = {"output" : None, "error" : None}
+
+    # Filter out bad commands
+    if input:
+        output["error"] = f"{Fore.RED}Error. Command should not have an input.{Style.RESET_ALL}\nRun 'chmod --help' for more info."
+        return output
+    
+    if flags:
+        output["error"] = f"{Fore.RED}Error. Command doesn't take flags.{Style.RESET_ALL}\nRun 'chmod --help' for more info."
+        return output
+    
+    if len(params) != 2:
+        output["error"] = f"{Fore.RED}Error. Command requires exactly two parameters: MODE and FILE.{Style.RESET_ALL}\nRun 'chmod --help' for more info."
+        return output
+    
+    # Splitting params into permission and files
+    permission = params[0]
+    file = params[1]
+    
+    # Validating permission string
+    if len(permission) != 3 or not permission.isdigit():
+        output["error"] = f"{Fore.RED}Error: Invalid permission '{permission}'. Mode should be a three-digit octal number (e.g., 755).{Style.RESET_ALL}\nRun 'chmod --help' for more info."
+        return output
+    
+    for digit in permission:
+        if digit < '0' or digit > '7':
+            output["error"] = f"{Fore.RED}Error: Invalid permission '{permission}'. Each digit should be between 0 and 7.{Style.RESET_ALL}\nRun 'chmod --help' for more info."
+            return output
+    
+    
+    # Seeing if file is an absolute path
+    if os.path.isabs(file):
+        file_path = file
+        
+    # If relative path, join with cwd
+    else:
+        file_path = os.path.join(os.getcwd(), file) 
+        
+    # File not found
+    if not os.path.exists(file_path):
+        output["error"] = f"{Fore.RED}Error: {file} could not be found.{Style.RESET_ALL}\nRun 'chmod --help' for more info."
+        return output
+    
+    # Change file permissions
+    try:
+        # Convert parameters to int
+        mode = int(params[0], 8)
+        os.chmod(file_path, mode)
+
+    # Catching errors
+    except PermissionError:
+        output["error"] = f"Error: Permission denied when changing mode of {file}."
+    except Exception as e:
+        output["error"] = f"An unexpected error occurred: {e}"
+
+    # Return success case
+    return output
+
+def more(parts):
+    '''
+    Usage:
+     more <file>...
+
+     --help     display this help
+    '''
+    lines, columns = get_terminal_size()
+    output = {"output" : None, "error" : None}
+    files = []
+    # display buffer to hold input data
+    display_buffer = []
+
+    # Getting parsed parts
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)
+    
+    if (not input and not params) or (input and params):
+        output["error"] = f"Error: 'more' needs either input or params."
+        return output
+
+    if flags:
+        output["error"] = f"Error: Command does not take flags."
+        return output
+    
+    if input:
+        if os.path.isfile(input):
+            files.append(input)
+        else:
+            if isinstance(input, str):
+                data_in = input.splitlines()
+            elif isinstance(input, list):
+                data_in = input
+            else:
+                data_in = [str(input)]
+            for whole_line in data_in:
+                line = whole_line.rstrip("\n")
+                while len(line) > columns:
+                    display_buffer.append(line[:columns])
+                    line = line[columns:]
+                display_buffer.append(line)
+
+    if params:
+        for param in params:
+            if os.path.isfile(param):
+                files.append(param)
+            else:
+                output["error"] = f"Error: Could not get the file to process. \nRun 'more --help' for more info."
+    
+    for file in files:
+        if os.path.isabs(file):
+            path = file
+        elif not os.path.isabs(file):
+            new_dir = file
+            cwd = os.getcwd()
+            path = os.path.join(cwd, new_dir)
+
+        if path:
+            try:
+                with open(path, 'r') as file_:
+                    # Read in each line of the input file as is and
+                    # process it
+                    for whole_line in file_:                        
+                        line = whole_line.rstrip("\n")    # remove the
+                                                        # trailing 
+                                                        # newline but 
+                                                        # keep spaces 
+                                                        # intact 
+                        
+                        # If the line is longer than the width of the 
+                        # terminal, slice it and add it to the display 
+                        # buffer
+                        while len(line) > columns:
+                            display_buffer.append(line[:columns])
+                            line = line[columns:]
+                        # Otherwise, just add it to the display buffer
+                        display_buffer.append(line)
+            except FileNotFoundError:
+                output["error"] = f"Error: File {params} not found."
+            except Exception as e:
+                output["error"] = f"An unexpected error occurred: {e}"  
+            
+        else:
+            output["error"] = f"Error: {file} could not be found. \nRun 'more --help' for more info."
+            return output
+
+    # start the screen display at 0
+    viewport_start = 0
+    while True:
+        os.system("clear")
+        page = display_buffer[viewport_start : viewport_start + (lines - 1)]
+        for line in page:
+            print(line)
+        
+        percent_displayed = ((viewport_start + len(page)) / len(display_buffer)) * 100
+        print(f"--MORE-- {percent_displayed:.1f}%", end="", flush=True)
+        
+        key = getch()
+        if key == "q":
+            return output
+        elif key in " ":
+            viewport_start = min(viewport_start + (lines - 1), len(display_buffer) - (lines - 1))
+        elif key in ("\n", "\r"):
+            viewport_start = min(viewport_start + 1, len(display_buffer) - (lines - 1))
+        elif key in "\x1b":
+            null = getch()
+            direction = getch()
+            if direction in "A":
+                viewport_start = 0
+            if direction in "B":
+                viewport_start = min(viewport_start + (lines - 1), len(display_buffer) - (lines - 1))
+        else:
+            pass
+        if percent_displayed >= 100:
+            return output
+
+def safe_input(prompt = "", cooked_settings=None):
+    '''
+    Function courtesy of ChatGPT for swapping between "raw" and "cooked" mode for less function searches
+    '''
+    fd = sys.stdin.fileno()
+    output = {"pattern" : None, "error" : None}
+    try:
+        if cooked_settings:
+            termios.tcsetattr(fd, termios.TCSADRAIN, cooked_settings)
+            output["pattern"] = input(prompt)
+    except Exception as e:
+        output["error"] = f"An unexpected error occurred: {e}"
+    return output
+
+def forward_search(disp_buf, view_start, pattern, m):
+    '''
+    Works with less to perform forward search. Takes the display buffer, start position, and user input pattern and searches forward within the document for the input pattern
+    '''
+    regex = re.compile(pattern, re.IGNORECASE)
+    for i in range(view_start, len(disp_buf)):
+        if regex.search(disp_buf[i]):
+            m.append(i)
+    if m:
+        return m
+    else:
+        return None
+
+def backward_search(disp_buf, view_start, pattern, m):
+    '''
+    works with less command to perform backward search. Takes the display buffer, start position, and user input pattern and searches backward within the document for in the input patter
+    '''
+    regex = re.compile(pattern, re.IGNORECASE)
+    for i in range(view_start, 0, -1):
+        if regex.search(disp_buf[i]):
+            m.append(i)
+    if m:
+        return m
+    else:
+        return None
+
+def highlight_pattern(m, d_b, pattern):
+    for match in m:
+        # Highlight all matches of the pattern in yellow
+        d_b[int(match)] = re.sub(re.escape(pattern), f"{Fore.YELLOW}{pattern}{Style.RESET_ALL}", d_b[int(match)])
+    return d_b
+
+def less(parts, old_settings):
+    '''
+    SUMMARY OF LESS COMMANDS
+
+    Commands marked with * may be preceded by a number, N.
+    Notes in parenthesis indicate the behavior if N is given.
+    A key preceded by a caret indicates the Ctrl key; thus ^K is ctrl-K
+
+    h  H                Display this help.
+    q  :q  Q  :Q  ZZ    Exit
+    --------------------------------------------------------------------
+
+    MOVING
+
+    e  ^E  j  ^N  CR  *  Forward  one line  
+    y  ^Y  k  ^K  ^P  *  Backward one line  
+    f  ^F  ^V  SPACE  *  Forward  one window
+    b  ^B  ESC-V      *  Backward one window
+    z                 *  Forward  one window
+    w                 *  Backward one window
+    d  ^D             *  Forward  one half-window
+    u  ^U             *  Backward one half-window
+    ESC-> RightArrow  *  Right one half screen width.
+    ESC-< LeftArrow   *  Left one half screen width.
+    r  ^R  ^L         *  Repaint screen.
+    R                 *  Repaint screen, discarding buffered input.
+         ----------------------------------------------------
+         "Window" is the screen height.
+         "Half-window" is half of the screen height.
+    --------------------------------------------------------------------
+
+    SEARCHING
+
+    /pattern          *  Search forward for matching line.
+    ?pattern          *  Search backward for matching line.
+    --------------------------------------------------------------------
+    '''
+
+    lines, columns = get_terminal_size()
+    output = {"output" : None, "error" : None}
+    files = []
+    # display buffer to hold input data
+    display_buffer = []
+    # matches for search results
+    matches = []
+
+    # Getting parsed parts
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)
+    
+    # Filter out bad commands
+    if (not input and not params) or (input and params):
+        output["error"] = f"Error: 'more' needs either input or params."
+        return output
+
+    if flags:
+        output["error"] = f"Error: Command does not take flags."
+        return output
+    
+    if input:
+        if os.path.isfile(input):
+            files.append(input)
+        else:
+            if isinstance(input, str):
+                data_in = input.splitlines()
+            elif isinstance(input, list):
+                data_in = input
+            else:
+                data_in = [str(input)]
+            for whole_line in data_in:
+                line = whole_line.rstrip("\n")
+                while len(line) > columns:
+                    display_buffer.append(line[:columns])
+                    line = line[columns:]
+                display_buffer.append(line)
+
+    if params:
+        for param in params:
+            if os.path.isfile(param):
+                files.append(param)
+            else:
+                output["error"] = f"Error: Could not get the file to process. \nRun 'more --help' for more info."
+                return output
+    
+    for file in files:
+        if os.path.isabs(file):
+            path = file
+        elif not os.path.isabs(file):
+            new_dir = file
+            cwd = os.getcwd()
+            path = os.path.join(cwd, new_dir)
+
+        if path:
+            try:
+                with open(path, 'r') as file_:
+                    # Read in each line of the input file as is and
+                    # process it
+                    for whole_line in file_:                        
+                        line = whole_line.rstrip("\n")    # remove the
+                                                        # trailing 
+                                                        # newline but 
+                                                        # keep spaces 
+                                                        # intact 
+                        
+                        # If the line is longer than the width of the 
+                        # terminal, slice it and add it to the display 
+                        # buffer
+                        while len(line) > columns:
+                            display_buffer.append(line[:columns])
+                            line = line[columns:]
+                        # Otherwise, just add it to the display buffer
+                        display_buffer.append(line)
+            except FileNotFoundError:
+                output["error"] = f"Error: File {params} not found."
+            except Exception as e:
+                output["error"] = f"An unexpected error occurred: {e}"  
+            
+        else:
+            output["error"] = f"Error: {file} could not be found. \nRun 'more --help' for more info."
+            return output
+
+    # start the screen display at 0
+    viewport_start = 0
+    horiz_offset = 0
+    cursor_pos = 0
+    showing_help = False
+    l_cmd = ""
+    old_buff = display_buffer
+    while True:
+        os.system("clear")
+        page = display_buffer[viewport_start : viewport_start + (lines - 1)]
+        for line in page:
+            print(line[horiz_offset:horiz_offset + columns])
+        
+        print(f":", end="", flush=True)
+        
+        key = getch()
+
+        if key in ("h", "H"):
+            orig_buff = display_buffer.copy()
+            display_buffer.clear()
+            display_buffer.extend(less.__doc__.splitlines())
+            showing_help = True
+        elif key in ("q", "Q", "ZZ"):
+            if showing_help:
+                display_buffer = orig_buff
+                showing_help = False
+            else:
+                return output
+        elif key in ("f", "\x06", "\x16", " "):
+            viewport_start = min(viewport_start + (lines - 1), len(display_buffer) - (lines - 1))
+        elif key in ("e", "\x05", "j", "\x0e", "\n", "\r"):
+            viewport_start = min(viewport_start + 1, len(display_buffer) - (lines - 1))
+        elif key in ("y", "\x19", "k", "\x0b", "\x10"):
+            viewport_start = max(0, viewport_start - 1)
+        elif key in ("b", "\x02"):
+            viewport_start = max(0, viewport_start - (lines - 1))
+        elif key in ("z"):
+            viewport_start = min(viewport_start + (lines - 1), len(display_buffer) - (lines - 1))
+        elif key in ("w"):
+            viewport_start = max(0, viewport_start - (lines - 1))
+        elif key in ("d", "\x04"):
+            viewport_start = min(viewport_start + (lines//2), len(display_buffer) - (lines - 1))
+        elif key in ("u", "\x15"):
+            viewport_start = max(0, viewport_start - (lines//2))
+        elif key in ("F"):
+            viewport_start = len(display_buffer) - lines - 1
+        elif key in ("r", "\x12", "\x0c"):
+            if old_buff:
+                display_buffer = old_buff
+            else:
+                pass
+        # Need to fix prompt
+        elif key == "/":
+            results = {"pattern" : None, "error" : None}
+            results = safe_input("/", old_settings)
+            if results["error"]:
+                output["error"] = results["error"]
+                return output
+            else:
+                result = forward_search(display_buffer, viewport_start, results["pattern"], matches)
+            if result:
+                display_buffer = old_buff
+                display_buffer = highlight_pattern(matches, display_buffer, results["pattern"])
+                viewport_start = int(matches[0])
+        elif key == "?":
+            results = {"pattern" : None, "error" : None}
+            results = safe_input("?", old_settings)
+            if results["error"]:
+                output["error"] = results["error"]
+                return output
+            result = backward_search(display_buffer, viewport_start, results["pattern"], matches)
+            if result:
+                display_buffer = old_buff
+                display_buffer = highlight_pattern(matches, display_buffer, results["pattern"])
+                viewport_start = int(matches[0])
+        elif key in "\x1b":
+            null = getch()
+            direction = getch()
+            if direction in "A":
+                viewport_start = 0
+            if direction in "B":
+                viewport_start = min(viewport_start + (lines - 1), len(display_buffer) - (lines - 1))
+            if direction in "C":
+                horiz_offset += columns // 2
+            if direction in "D":
+                horiz_offset = max(0, horiz_offset - (columns // 2))
+        else:
+            l_cmd = l_cmd[:cursor_pos] + key + l_cmd[cursor_pos:]
+            cursor_pos += 1
+            print(l_cmd)
+
+def ip(parts):
+    '''
+    Display the IP address of the machine.
+    '''
+    
+    # Getting parsed parts
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)    
+    
+    # Dictionary to return
+    output = {"output" : None, "error" : None}
+    
+    # Filter out bad commands
+    if input or flags or params:
+        output["error"] = f"{Fore.RED}Error. Command should not have any input, flags, or params.{Style.RESET_ALL}\nRun 'ip --help' for more info."
+        return output
+    
+    # Getting hostname and IP address
+    try:
+        hostname = socket.gethostname()
+        ip_addr  = socket.gethostbyname(hostname)
+        output["output"] = f"IP Address: {ip_addr}"
+    except Exception as e:
+        output["error"] = f"{Fore.RED}An error occurred while retrieving the IP address: {e}.{Style.RESET_ALL}"
+    
+    # Return final output
+    return output
+
+def date(parts):
+    '''
+    Display the current date and time.
+    '''
+    
+    # Getting parsed parts
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)    
+    
+    # Dictionary to return
+    output = {"output" : None, "error" : None}
+    
+    # Filter out bad commands
+    if input or flags or params:
+        output["error"] = f"{Fore.RED}Error. Command should not have any input, flags, or params.{Style.RESET_ALL}\nRun 'date --help' for more info."
+        return output
+    
+    # Getting current date and time
+    # Got time functions from chatGPT
+    try:
+        current_time = time.strftime("%m-%d-%y %H:%M:%S", time.localtime())
+        output["output"] = f"{current_time}"
+    except Exception as e:
+        output["error"] = f"{Fore.RED}An error occurred while retrieving the date and time: {e}.{Style.RESET_ALL}"
+    
+    # Return final output
+    return output
+
+def run(parts):
+    '''
+    Launch the Firefox web browser or Nautilus fire manager.
+    
+    Possible commands: run firefox, run nautilus
+    
+    Note: 
+    
+    This command does not take any input or flags.
+    Make sure Firefox and Nautilus is installed on your system.
+    
+    Run only works in a GUI environment.
+    Vs Code terminal is not a GUI environment.
+    If running in a non-GUI environment, this command will return an error.
+    
+    To install Firefox and Nautilus:
+    1. sudo apt update
+    2. sudo apt install firefox -y 
+    3. sudo apt install nautilus -y
+    '''
+    
+    # Getting parsed parts
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)    
+    
+    # Dictionary to return
+    output = {"output" : None, "error" : None}
+    
+    # Throw error if user added input, flags
+    if input and flags:
+        output["error"] = f"{Fore.RED}Error: Command should not have any input or flags .{Style.RESET_ALL}\nRun 'run --help' for more info."
+        return output
+    
+    if len(params) != 1:
+        output["error"] = f"{Fore.RED}Error: Command only takes one parameter.{Style.RESET_ALL}\nRun 'run --help' for more info."
+        return output
+    
+    # Convert params to string
+    if params:
+        params = "".join(params)
+        params = params.strip("'")
+    
+    # Throw error if user didn't provide correct parameter
+    if params not in ["firefox", "nautilus"]:
+        output["error"] = f"{Fore.RED}Error: Command only takes 'firefox' or 'nautilus' as a parameter.{Style.RESET_ALL}\nRun 'run --help' for more info."
+        return output
+    
+    # Storing program to run
+    program = params.strip().lower()
+    
+    # Check if DISPLAY exists for GUI
+    # firefix needs a display to run
+    if "DISPLAY" not in os.environ:
+        output["error"] = f"{Fore.RED}Error: Cannot run GUI apps: no display found.{Style.RESET_ALL} \nRun 'run --help' for more info."
+        return output
+
+    # Check if program exists
+    # shutil.which searchs for executables in system path
+    if shutil.which(program):
+        try:
+            # Running firefox on its own process so firefox can run independently
+            # Suppress output by redirecting to DEVNULL
+            # Python script can continue runnning without waiting for firefox to close
+            subprocess.Popen([program], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            
+            # Return nothing on success
+            return output
+            
+        # Catch any exceptions during launch
+        except Exception as e:
+            output["error"] = f"Error launching {program}: {e}"
+            return output
+            
+    # Program not found in PATH
+    else:
+        output["error"] = f"Program '{program}' not found in PATH."
+        output["error"] = f"Is {program} installed?{Style.RESET_ALL}\nIf it isn't, exit the shell and install."
+        output["error"] += f"\nTo install {program}:\n  1. sudo apt update\n  2. sudo apt install {program} -y"
+        return output
+
+def list_of_commands(parts):
+    '''
+    Returns a list of all available commands in the shell.
+    '''
+    
+    # Getting parsed parts
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)    
+    
+    # Dictionary to return
+    output = {"output" : None, "error" : None}
+    
+    # Filter out bad commands
+    if input or flags or params:
+        output["error"] = f"{Fore.RED}Error. Command should not have any input, flags, or params.{Style.RESET_ALL}\nRun 'commands --help' for more info."
+        return output
+    
+    # Starting with empty output
+    output["output"] = ""
+
+    # Concatenating command list
+    output["output"] += f"{Fore.GREEN}cd{Style.RESET_ALL}: change directory\n"
+    output["output"] += f"{Fore.GREEN}ls{Style.RESET_ALL}: list files\n"
+    output["output"] += f"{Fore.GREEN}pwd{Style.RESET_ALL}: print working directory\n"
+    output["output"] += f"{Fore.GREEN}mkdir{Style.RESET_ALL}: make directory\n"
+    output["output"] += f"{Fore.GREEN}wc{Style.RESET_ALL}: word/line/character count\n"
+    output["output"] += f"{Fore.GREEN}cat{Style.RESET_ALL}: display file contents\n"
+    output["output"] += f"{Fore.GREEN}grep{Style.RESET_ALL}: search text in files\n"
+    output["output"] += f"{Fore.GREEN}sort{Style.RESET_ALL}: sort lines in files\n"
+    output["output"] += f"{Fore.GREEN}mv{Style.RESET_ALL}: move/rename files\n"
+    output["output"] += f"{Fore.GREEN}rm{Style.RESET_ALL}: remove files\n"
+    output["output"] += f"{Fore.GREEN}help{Style.RESET_ALL}: show help info\n"
+    output["output"] += f"{Fore.GREEN}history{Style.RESET_ALL}: show command history\n"
+    output["output"] += f"{Fore.GREEN}chmod{Style.RESET_ALL}: change file permissions\n"
+    output["output"] += f"{Fore.GREEN}cp{Style.RESET_ALL}: copy files\n"
+    output["output"] += f"{Fore.GREEN}date{Style.RESET_ALL}: show current date/time\n"
+    output["output"] += f"{Fore.GREEN}clear{Style.RESET_ALL}: clear terminal\n"
+    output["output"] += f"{Fore.GREEN}exit{Style.RESET_ALL}: exit shell\n"
+    output["output"] += f"{Fore.GREEN}run{Style.RESET_ALL}: run a program\n"
+    output["output"] += f"{Fore.GREEN}ip{Style.RESET_ALL}: show IP address\n"
+    output["output"] += f"{Fore.GREEN}commands{Style.RESET_ALL}: list available commands\n"
+    output["output"] += f"{Fore.GREEN}!x{Style.RESET_ALL}: run command from history\n"
+    output["output"] += f"{Fore.GREEN}head{Style.RESET_ALL}: show first lines of file\n"
+    output["output"] += f"{Fore.GREEN}tail{Style.RESET_ALL}: show last lines of file\n"
+    output["output"] += f"{Fore.GREEN}more{Style.RESET_ALL}: paginate file output\n"
+    output["output"] += f"{Fore.GREEN}less{Style.RESET_ALL}: scroll through file output\n"
+
+    # Returning output
+    return output
+
+def clear_screen(parts):
+    '''
+    Clear the terminal screen.
+    '''
+    
+    # Getting parsed parts
+    input = parts.get("input", None)
+    flags = parts.get("flags", None)
+    params = parts.get("params", None)    
+    
+    # Dictionary to return
+    output = {"output" : None, "error" : None}
+    
+    # Filter out bad commands
+    if input or flags or params:
+        output["error"] = f"{Fore.RED}Error. Command should not have any input, flags, or params.{Style.RESET_ALL}\nRun 'clear --help' for more info."
+        return output
+    
+    # Clear the screen
+    clear()
+    
+    # Return final output
+    return output
 
 def history(parts):
     """
@@ -795,10 +2189,18 @@ def history(parts):
     if not input and not flags and not params:
         
         # Get the absolute path of the folder where the script is located
-        script_dir = os.path.dirname(os.path.abspath(__file__))
+        # script_dir = os.path.dirname(os.path.abspath(__file__))
 
-        # Build the full path to history.txt inside your repo
-        history_file = os.path.join(script_dir, "history.txt")
+        # Get the absolute path of the user's home directory
+        home_dir = os.path.expanduser("~")
+
+        # # Move history file if it is located in folder where script is 
+        # # located
+        # if os.path.exists("history.txt"):
+        #     shutil.move("history.txt", home_dir)
+        # else:
+        #     # Build the full path to history.txt inside the home directory
+        history_file = os.path.join(home_dir, "history.txt")
 
         history_list = []
         command_number = 1
@@ -836,7 +2238,160 @@ def history(parts):
     # If user added on top of history command
     else:
         output["error"] = "Error, history command must not have any params, input, or flags."
+
+def if_not_x_command(command_list, cmd):
+    """
+    !x Command
+
+    Re-executes the most recent command in history that begins with the character 'x'.  
+    This is similar to history expansion in Unix shells.
+
+    Examples:
+        history
+        ls
+        !l      # Repeats the last command that began with 'l' (in this case, 'ls')
+
+    Notes:
+        - Only works with single commands, not pipelines or compound commands.
+        - Only searches backwards through the stored command history.
+        - If no matching command is found, an error message is returned.
+        - Case-sensitive by default.
+    """
     
+    if (len(command_list) == 1 
+        and command_list[0].get("cmd").startswith("!") 
+        and command_list[0].get("cmd")[1:].isnumeric()):
+        
+        # Get the cmd and send to function.
+        result = cmd_from_history(command_list[0].get("cmd"))
+
+        if result["error"]:
+            # Set command list to zero
+            command_list = []
+        else:
+            # Setting command_list to result command from !x command
+            command_list = parse_cmd(result["output"])
+            cmd = result["output"]
+            result["output"] = None
+
+            print(cmd)
+
+    return command_list, cmd
+
+def help(parts):
+    """
+    Display documentation for available commands.
+
+    This function prints the docstrings of all implemented commands
+    in the shell, allowing the user to see usage instructions and
+    a short description of each command. The output is intended to
+    act like a built-in help manual.
+
+    Example:
+        > help --help
+        Prints description of help command
+    """
+    
+    # Storing parsed commands
+    input  = parts.get("input", None)
+    flags  = parts.get("flags", None)
+    params = parts.get("params", None)
+    cmd    = parts.get("cmd", None)
+    
+    # Dictionary to store output
+    output = {"output" : None, "error" : None}
+    
+    output["output"] = "    ------------------------------"
+    
+    # Making sure user only typed command followed by '--help'
+    if not input and not params and flags == "--help":
+        if cmd == "cd":
+            output["output"] += cd.__doc__
+            
+        elif cmd == "ls":
+            output["output"] += ls.__doc__
+
+        elif cmd == "pwd":
+            output["output"] += pwd_.__doc__
+
+        elif cmd == "mkdir":
+            output["output"] += mkdir.__doc__
+            
+        elif cmd == "wc":
+            output["output"] += wc.__doc__
+            
+        elif cmd == "history":
+            output["output"] += history.__doc__
+            
+        elif cmd == "help":
+            output["output"] += help.__doc__
+
+        elif cmd == "cat":
+            output["output"] += cat.__doc__
+
+        elif cmd == "cp":
+            output["output"] += cp.__doc__
+
+        elif cmd == "mv":
+            output["output"] += mv.__doc__
+
+        elif cmd == "rm":
+            output["output"] += rm.__doc__
+
+        elif cmd == "exit":
+            output["output"] += exit.__doc__
+            
+        elif cmd == "grep":
+            output["output"] += grep.__doc__
+            
+        elif cmd == "sort":
+            output["output"] += sort.__doc__
+            
+        elif cmd == "chmod":
+            output["output"] += chmod.__doc__
+            
+        elif cmd == "ip":
+            output["output"] += ip.__doc__
+        
+        elif cmd == "date":
+            output["output"] += date.__doc__
+            
+        elif cmd == "clear":
+            output["output"] += clear_screen.__doc__
+            
+        elif cmd == "run":
+            output["output"] += run.__doc__
+            
+        elif cmd == "commands":
+            output["output"] += list_of_commands.__doc__
+            
+        elif cmd == "!x":
+            output["output"] += cmd_from_history.__doc__
+            
+        elif cmd == "more":
+            output["output"] += more.__doc__
+
+        elif cmd == "less":
+            output["output"] += less.__doc__
+            
+        elif cmd == "!x":
+            output["output"] += if_not_x_command.__doc__
+           
+        '''
+        if cmd == "head":
+            output["output"] += head.__doc__
+
+        if cmd == "tail":
+            output["output"] += tail.__doc__
+
+        
+        '''
+        
+        output["output"] += "------------------------------"
+        return output
+    else:
+        output["error"] = f"{Fore.RED}Error, help for command {cmd} could not be found.{Style.RESET_ALL}"
+        return output
     
 def get_history_rev():
     """
@@ -851,11 +2406,11 @@ def get_history_rev():
         List of all commands in history file.
     """
     
-    # Get the absolute path of the folder where the script is located
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # Get the absolute path of the user's home directory
+    home_dir = os.path.expanduser("~")
 
     # Build the full path to history.txt inside your repo
-    history_file = os.path.join(script_dir, "history.txt")
+    history_file = os.path.join(home_dir, "history.txt")
 
     # Check if history file exists
     if os.path.exists(history_file):
@@ -878,7 +2433,6 @@ def get_history_rev():
     else:
         # History file doesn't exist
         return None
-    
     
 # This functions works as the !x command
 def cmd_from_history(index):
@@ -914,23 +2468,32 @@ def cmd_from_history(index):
         output["error"] = f"Error. There are only {len(h_cmds)} commands in history."
         return output
        
-       
 def write_to_history(cmd):
     '''
     # write out the command to the history file
     # so you can access it later with the up/down arrows
     '''
           
-    # Get the absolute path of the folder where the script is located
+    # Get the absolute path of the user's home directory
     # Since this script and the history file are in the same directory:
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    home_dir = os.path.expanduser("~")
 
     # Build the full path to history.txt inside your repo
-    history_file = os.path.join(script_dir, "history.txt")
+    history_file = os.path.join(home_dir, "history.txt")
 
     # Append command to the file
     with open(history_file, "a") as file:
         file.write(cmd + "\n")
+
+def write_to_file(data, filename):
+    output = {"output": None, "error": None}
+    try:
+        with open(filename, "w") as f:
+            f.write(data)
+    except Exception as e:
+        output["error"] = f"An unexpected error occurred: {e}"
+        return output
+    return output
        
 def clear():
     """
@@ -953,17 +2516,30 @@ def parse_cmd(cmd_input):
         
         # Need to have a check while procession that if error has error in it, stop processing.
         
-        d = {"input" : None, "cmd" : None, "params" : [], "flags" : None, "error" : None}
+        d = {"input" : None, "cmd" : None, "params" : [], "flags" : None, "error" : None, "out" : None}
         subparts = cmd.strip().split()
         d["cmd"] = subparts[0]
         
         # Going thorugh the rest of the subparts to classify and store correctly
         for item in subparts[1:]:
             
+            # Storing flags and params
             if item.startswith("-"):
-                d["flags"] = item[1:]
+                
+                # Check if flags already exist
+                if d["flags"]:
+                    d["error"] = f"{Fore.RED}Error: Flags must be combined.{Style.RESET_ALL}"
+                else:
+                    d["flags"] = item
             else:
                 d["params"].append(item)
+
+        # Check parameters for output redirection operator and handle
+        if ">" in d["params"]:
+            idx = d["params"].index(">")
+            d["out"] = d["params"][idx + 1]
+            del d["params"][idx + 1]
+            del d["params"][idx]
                 
         # Appending the correct dictionary to command list
         command_list.append(d)
@@ -1033,6 +2609,12 @@ if __name__ == "__main__":
     # Print welcome message
     WelcomeMessage()
     
+    # List of commands user may request to execute
+    available_commands = ["ls", "pwd", "mkdir", "cd", "cp", "mv", "rm", "cat",
+                          "head", "tail", "grep", "wc", "chmod", "history",
+                          "exit", "more", "less", "sort", "help", "ip", "date",
+                          "clear", "run", "commands", "!x"]
+    
     # Empty cmd variable
     cmd = ""
     
@@ -1062,49 +2644,45 @@ if __name__ == "__main__":
                 cursor_pos -= 1
             print_cmd(cmd, cursor_pos)
 
-        elif char in "\x1b":  # arrow key pressed
-            null = getch()  # waste a character
-            direction = getch()  # grab the direction
+        # User pressed arror key, remove that input and get direction
+        elif char in "\x1b":
+            null = getch()
+            direction = getch()
             
             # Get updated history if avaible
             h_cmd = get_history_rev() or []
 
-            if direction in "A":  # up arrow pressed
+            # Up arror pressed
+            if direction in "A":
                 
                 # Get list of history commands
                 if h_cmd and history_index < len(h_cmd) - 1:
                     
-                    # Get the previous command from history depending on
-                    # history_index and increment index
+                    # Get the previous command from history
                     history_index += 1
                     cmd = h_cmd[history_index]
                     
                     
                 # If at the end of history, stay there
                 else:
-                    # already at the oldest command
-                    # so set cmd to end of h_cmd list
                     cmd = h_cmd[-1]
                     
                 # Moving cursor to length of new cmd and print cmd
                 cursor_pos = len(cmd)
                 print_cmd(cmd, cursor_pos)
 
-            if direction in "B":  # down arrow pressed
+            # Down arror pressed
+            if direction in "B":
                 
-                # get the NEXT command from history (if there is one)
+                # get the next command from history
                 if h_cmd and history_index > 0:
                     
-                    # Get the previous command from history depending on
-                    # history_index and decrement index
+                    # Get previous command
                     history_index -= 1
                     cmd = h_cmd[history_index]
-
-                    
+  
                 # At the newest, go to blank like
                 else:
-                    
-                    # Getting a blank line
                     history_index = -1
                     cmd = ""
                     
@@ -1112,24 +2690,29 @@ if __name__ == "__main__":
                 cursor_pos = len(cmd)
                 print_cmd(cmd, cursor_pos)
 
-            if direction in "C":  # right arrow pressed
-                # move the cursor to the right on your command prompt line
+            # Right arrow pressed
+            if direction in "C":
+                
+                # Move cursor to the right
                 if cursor_pos < len(cmd):
                     cursor_pos += 1
                 print_cmd(cmd, cursor_pos)
 
-            if direction in "D":  # left arrow pressed
-                # moves the cursor to the left on your command prompt line
+            # Left arrow pressed
+            if direction in "D":
+                
+                # Move cursor to the left
                 if cursor_pos > 0:
                     cursor_pos -= 1
                 print_cmd(cmd, cursor_pos)
 
-
-        elif char in "\r":  # return pressed
+        # Return character pressed
+        elif char in "\r":
             
-            # Printing blank line to info isn't overwritten
+            # Printing blank line so info isn't overwritten
             print()
             
+            # Exit
             if cmd == "exit":
                 exit()
                 
@@ -1140,62 +2723,82 @@ if __name__ == "__main__":
                 command_list = parse_cmd(cmd)
                 result = {"output" : None, "error" : None}
                 
-                # Handle if user wants to run !x command
-                if len(command_list) == 1 and command_list[0].get("cmd").startswith("!"):
-                    
-                    # Get the cmd and send to function.
-                    # It includes ! but we will remove in function
-                        result = cmd_from_history(command_list[0].get("cmd"))
+                # Check if error while parsing command
+                for command in command_list:
+                    if command.get("error"):
+                        result["error"] = command.get("error")
+                        command_list = []
                         
-                        #Setting cmd to 'x' command from !x
-                        if result["error"]:
-                            
-                            # Set command list to zero
-                            command_list = []
-                            
-                        # Setting command_list to result command from !x command
-                        else:
-                            command_list = parse_cmd(result["output"])
-                            cmd = result["output"]
-                            
-                            # Printing to the user what is about to be executed
-                            print()
-                            print("Command(s) being executed.")
-                            print("--------------------")
-                            for command in command_list:
-                                print("Command:", command.get("cmd"))
-                                print("Flags:", command.get("flags"))
-                                print("Params:", command.get("params"))
-                                print("Input:", command.get("input"))
-                                print("--------------------")
-                            print()
+                # Handling !x command
+                command_list, cmd = if_not_x_command(command_list, cmd)
 
-            
+                # Executing each command in the command list
                 while len(command_list) != 0:
             
                     # Pop first command off of the command list
                     command = command_list.pop(0)
                     
+                    # Making sure valid command
+                    if command.get("cmd") not in available_commands:
+                        result["error"] = f"Error. command '{command.get("cmd")}' is not in list of avaiable commands."
+                        
+                    # If there is output in the previous command and command has not input
+                    # make the output to the previous command the input to the next
+                    if result["output"] and not command["input"]:
+                        command["input"] = result["output"]                   
+                    
                     # Kill execution if error
                     if result["error"]:
                         break
-
                         
-                    if command.get("cmd") == "cd":
+                    if command.get("flags") == "--help" and not command.get("params") and not command.get("input"):
+                        result = help(command)     
+                    elif command.get("cmd") == "cd":
                         result = cd(command)
                     elif command.get("cmd") == "ls":
                         result = ls(command)
                     elif command.get("cmd") == "pwd":
-                        result = pwd()
+                        result = pwd_()
                     elif command.get("cmd") == "mkdir":
                         result = mkdir(command)
                     elif command.get("cmd") == "history":
                         result = history(command)
-
+                    elif command.get("cmd") == "cat":
+                        result = cat(command)
+                    elif command.get("cmd") == "wc":
+                        result = wc(command)
+                    elif command.get("cmd") == "cp":
+                        result = cp(command)
+                    elif command.get("cmd") == "mv":
+                        result = mv(command)
+                    elif command.get("cmd") == "rm":
+                        result = rm(command)
+                    elif command.get("cmd") == "grep":
+                        result = grep(command)
+                    elif command.get("cmd") == "sort":
+                        result = sort(command)
+                    elif command.get("cmd") == "chmod":
+                        result = chmod(command)
+                    elif command.get("cmd") == "ip":
+                        result = ip(command)
+                    elif command.get("cmd") == "date":
+                        result = date(command)
+                    elif command.get("cmd") == "clear":
+                        result = clear_screen(command)
+                    elif command.get("cmd") == "run":
+                        result = run(command)
+                    elif command.get("cmd") == "commands":
+                        result = list_of_commands(command)
+                    elif command.get("cmd") == "more":
+                        result = more(command)
+                    elif command.get("cmd") == "less":
+                        result = less(command, old_settings)
                             
                 # Printing result to screen
                 if result["error"]:
                     print(result["error"])
+                elif command.get("out"):
+                    result = write_to_file(result["output"], command.get("out"))
                 elif result["output"]:
                     print(result["output"])
 
@@ -1203,9 +2806,10 @@ if __name__ == "__main__":
             # Writing command to history
             write_to_history(cmd)
 
-            # Setting cmd back to blank and cursor back to 0
+            # Setting cmd blank, cursor to 0, and history index to -1
             cmd = ""
             cursor_pos = 0
+            history_index = -1
             
             print_cmd(cmd)  # now print empty cmd prompt on next line
             
