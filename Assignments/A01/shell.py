@@ -948,13 +948,14 @@ def head(parts):
     GB 1000*1000*1000, G 1024*1024*1024, and so on for T, P, E, Z, Y, R, Q.
     Binary prefixes can be used, too: KiB=K, MiB=M, and so on.
     '''
-
+    # Defining multipliers for suffixes like K, M, G, etc.
     input_data = parts.get("input", None)
     flags = parts.get("flags", None)
     params = parts.get("params", [ ] ) or [ ]
 
     output = {"output": None, "error": None}
 
+     # Define multipliers for suffixes like K, M, G, etc.
     decimal_suffixes = {
         "kb": 1000,
         "mb": 1000 ** 2,
@@ -967,7 +968,7 @@ def head(parts):
         "rb": 1000 ** 9,
         "qb": 1000 ** 10,
     }
-
+    # Define binary suffixes for multipliers like KiB, MiB, etc.
     binary_suffixes = {
         "k": 1024,
         "m": 1024 ** 2,
@@ -1013,6 +1014,7 @@ def head(parts):
     drop_last = False
     count_token = None
 
+    # Check for flags and parse line count from parameters
     if flags:
         if flags in ("-n", "--lines"):
             if not params:
@@ -1070,6 +1072,7 @@ def head(parts):
 
     files = params or []
 
+    # Read from files or standard input
     if files:
         for name in files:
             if name == "-":
@@ -1104,6 +1107,7 @@ def head(parts):
 
         lines = text.splitlines(keepends=True)
 
+        # Handle dropping lines from the end
         if drop_last:
             if line_count == 0:
                 selected = lines
@@ -1111,6 +1115,7 @@ def head(parts):
                 selected = []
             else:
                 selected = lines[: len(lines) - line_count]
+        # Handle printing lines from the start
         else:
             if line_count >= len(lines):
                 selected = lines
@@ -1154,6 +1159,7 @@ def tail(parts):
 
     output = {"output": None, "error": None}
 
+    # Define multipliers for suffixes like K, M, G, etc.
     decimal_suffixes = {
         "kb": 1000,
         "mb": 1000 ** 2,
@@ -1167,6 +1173,7 @@ def tail(parts):
         "qb": 1000 ** 10,
     }
 
+    # Define binary suffixes for multipliers like KiB, MiB, etc.
     binary_suffixes = {
         "k": 1024,
         "m": 1024 ** 2,
@@ -1212,6 +1219,7 @@ def tail(parts):
     from_start = False
     count_token = None
 
+    # Check for flags and parse line count from parameters
     if flags:
         if flags in ("-n", "--lines"):
             if not params:
@@ -1264,6 +1272,7 @@ def tail(parts):
 
     files = params or []
 
+    # Read from files or standard input
     if files:
         for name in files:
             if name == "-":
@@ -1298,9 +1307,11 @@ def tail(parts):
 
         lines = text.splitlines(keepends=True)
 
+        # Handle printing lines from a certain point
         if from_start:
             start_index = max(line_count - 1, 0)
             selected = lines[start_index:]
+        # Handle printing lines from the end
         else:
             if line_count == 0:
                 selected = []
@@ -2912,7 +2923,7 @@ def parse_cmd(cmd_input):
         
         # Need to have a check while procession that if error has error in it, stop processing.
         
-        d = {"input" : None, "cmd" : None, "params" : [], "flags" : None, "error" : None, "out" : None}
+        d = {"input" : None, "cmd" : None, "params" : [], "flags" : None, "error" : None, "out" : None, "in_file" : None} 
         subparts = cmd.strip().split()
         d["cmd"] = subparts[0]
         
@@ -2934,6 +2945,13 @@ def parse_cmd(cmd_input):
         if ">" in d["params"]:
             idx = d["params"].index(">")
             d["out"] = d["params"][idx + 1]
+            del d["params"][idx + 1]
+            del d["params"][idx]
+
+        # Check parameters for input redirection operator and handle
+        if "<" in d["params"]:
+            idx = d["params"].index("<")
+            d["in_file"] = d["params"][idx + 1]
             del d["params"][idx + 1]
             del d["params"][idx]
                 
@@ -3141,7 +3159,20 @@ if __name__ == "__main__":
                     # If there is output in the previous command and command has not input
                     # make the output to the previous command the input to the next
                     if result["output"] and not command["input"]:
-                        command["input"] = result["output"]                   
+                        command["input"] = result["output"]     
+
+            # Handle input redirection from file
+            if command.get("in_file"):
+                try:
+                    with open(command.get("in_file"), 'r') as f:
+                        command["input"] = f.read()
+                except FileNotFoundError:
+                    result["error"] = f"Error: File {command.get("in_file")} not found."
+                    break
+                except Exception as e:
+                    result["error"] = f"An unexpected error occurred while reading input file: {e}"
+                    break
+            
                     
                     # Kill execution if error
                     if result["error"]:
