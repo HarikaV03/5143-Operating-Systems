@@ -1,16 +1,21 @@
 ls
 cd ..
 cd 5143-OpSys
-help
-help
+ls -lah
+cd --help
+test
+cd ~
+cd ~
+ls - lah
+ls -lah
+ls | wc
 ls
-pwd
-cd
-cp source.txt destination.txt
-echo "hello this is my source file." > source.txt
-cp source.txt destination.txt
-
-cat destination.txt
-
-git status
-git add .
+wc -lw history.txt
+wc --help
+wc --help | wc
+clear
+clear
+wc --help
+wc --help | wc
+help --help
+help --help

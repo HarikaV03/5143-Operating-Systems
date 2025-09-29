@@ -84,35 +84,30 @@ Run the `shell.py` file and use the following commands...
 ## Commands:
 | Command               | Description                                         | Author   |
 |-----------------------|-----------------------------------------------------|----------|
-| `ls`                  | List files and directories                          | Cooper   |
+| `ls`                  | List files and directories with flags: -l -a -h     | Cooper   |
 | `pwd`                 | Print working directory                             | Cooper   |
-| `ls -a`               | List all files, including hidden ones.              | Cooper   |
-| `ls -l`               | Long listing format.                                | Cooper   |
-| `ls -h`               | Human-readable file sizes.                          | Cooper   |
 | `mkdir`               | Create a directory.                                 | Cooper   |
 | `cd directory`        | Change to a named directory.                        | Cooper   |
-| `cd`                  | Change to the home directory if no argument given.  | Cooper   |
-| `cp file1 file2`      | Copy file1 to file2.                                |          |
-| `mv file1 file2`      | Move or rename file1 to file2.                      |          |
-| `rm -r`               | Recursively delete a directory.                     |          |
-| `cat file`            | Display contents of a file.                         |          |
-| `head -n`             | Display the first n lines of a file.                |          |
-| `tail -n`             | Display the last n lines of a file.                 |          |
-| `grep 'pattern' file` | Search for a pattern in a file.                     |          |
-| `wc -l`               | Count lines in a file.                              |          |
-| `wc -w`               | Count words in a file.                              |          |
-| `chmod xxx`           | Change file permissions.                            |          |
+| `cp file1 file2`      | Copy file1 to file2.                                | Tim      |
+| `mv file1 file2`      | Move or rename file1 to file2.                      | Tim      |
+| `rm -r`               | Recursively delete a directory.                     | Tim      |
+| `cat file`            | Display contents of a file.                         | Harika   |
+| `head -n`             | Display the first n lines of a file.                | Harika   |
+| `tail -n`             | Display the last n lines of a file.                 | Harika   |
+| `grep 'pattern' file` | Search for a pattern in a file.                     | Cooper   |
+| `wc`                  | Count words/lines in a file with flags: -w -l       | Cooper   |
+| `chmod xxx`           | Change file permissions.                            | Cooper   |
 | `history`             | Show previously used commands.                      | Cooper   |
 | `!x`                  | Re-run command number *x* from history.             | Cooper   |
 | `exit`                | Exits the shell.                                    | Cooper   |
 | `up & down arrows`    | Navigate previous command                           | Cooper   |
 | `left & right arrows` | Move cursor                                         | Cooper   |
-| `more`                |                                                     |          |
-| `less`                |                                                     |          |
+| `more`                |                                                     | Tim      |
+| `less`                |                                                     | Tim      |
 | `[program] > file`    |                                                     |          |
 | `[program] < file`    |                                                     |          |
-| `hfind`               |                                                     |          |
-| `piping`              |                                                     |          |
+| `hfind`               | ? This may be extra                                 |          |
+| `sort`                | Sort data. Includes flags: -n, -r, -a               | Cooper   |
 
 ### Help
 
@@ -125,16 +120,19 @@ Run the `shell.py` file and use the following commands...
 - `cat`
 - `head`
 - `tail`
-- `grep`
-- `wc`
-- `chmod`
 - `more`
 - `less`
 - `<`
 - `>`
 - `hfind`
-- commands with piping
 
+## Extras
+- Color list contents if they are directory (blue) or executable (green)
+- ls -merica: executes like "ls -lah" but with red white and blue pattern
+- date: displays date and time
+- clear: clears the screen
+- ip: displays ip address
+- run command runs an application
 
 ## References:
 - [geeksforgeeks](https://www.geeksforgeeks.org/python/executing-shell-commands-with-python/)

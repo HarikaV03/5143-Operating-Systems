@@ -774,20 +774,25 @@ def rm(parts):
         return output
     
     if flags == "-r":
+        print(f"Press 'Y' if you are certain you want to delete {params[0]} and all of its contents.")
+        val = getch()
+        if val.lower() == 'y':
+            try:
+                shutil.rmtree(params[0])
+            except FileNotFoundError:
+                output["error"] = f"Error: File {params[0]} not found."
+            except Exception as e:
+                output["error"] = f"An error occurred: {e}"
+        else:
+            return output
+    elif flags == "-rf" or flags == "-fr":
         try:
             shutil.rmtree(params[0])
         except FileNotFoundError:
             output["error"] = f"Error: File {params[0]} not found."
         except Exception as e:
             output["error"] = f"An error occurred: {e}"
-    elif flags == "--":
-        try:
-            os.remove(params[0])
-        except FileNotFoundError:
-            output["error"] = f"Error: File {params[0]} not found."
-        except Exception as e:
-            output["error"] = f"An error occurred: {e}"
-    else:
+    elif flags == "-f":
         if os.path.isdir(params[0]):
             try:
                 os.rmdir(params[0])
@@ -804,6 +809,40 @@ def rm(parts):
                 output["error"] = f"Error: File {params[0]} not found."
             except Exception as e:
                 output["error"] = f"An error occurred: {e}"
+    elif flags == "--":
+        try:
+            os.remove(params[0])
+        except FileNotFoundError:
+            output["error"] = f"Error: File {params[0]} not found."
+        except Exception as e:
+            output["error"] = f"An error occurred: {e}"
+    else:
+        if os.path.isdir(params[0]):
+            print(f"You are attempting to remove directory {params[0]}. Press 'Y' to proceed.")
+            val = getch()
+            if val.lower() == 'y':
+                try:
+                    os.rmdir(params[0])
+                except FileNotFoundError:
+                    output["error"] = f"Error: File {params[0]} not found."
+                except OSError as e:
+                    output["error"] = f"Error deleting directory {params[0]}    : {e}"
+                except Exception as e:
+                    output["error"] = f"An error occurred: {e}"
+            else:
+                return output
+        else:
+            print(f"You are attempting to remove {params[0]}. Press 'Y' to proceed.")
+            val = getch()
+            if val.lower() == 'y':
+                try:
+                    os.remove(params[0])
+                except FileNotFoundError:
+                    output["error"] = f"Error: File {params[0]} not found."
+                except Exception as e:
+                    output["error"] = f"An error occurred: {e}"
+            else:
+                return output
     
     return output
 
@@ -1092,7 +1131,7 @@ def head(parts):
     result = "\n\n".join(section for section in sections if section is not None)
     output["output"] = result
 
-    return output
+    return output    
 
 def tail(parts):
     '''
@@ -1108,7 +1147,7 @@ def tail(parts):
     GB 1000*1000*1000, G 1024*1024*1024, and so on for T, P, E, Z, Y, R, Q.
     Binary prefixes can be used, too: KiB=K, MiB=M, and so on.
     '''
-
+    
     input_data = parts.get("input", None)
     flags = parts.get("flags", None)
     params = parts.get("params", []) or []
@@ -2736,11 +2775,10 @@ def help(parts):
             
         elif cmd == "!x":
             output["output"] += if_not_x_command.__doc__
-           
+
         elif cmd == "head":
             output["output"] += head.__doc__
-      
-    
+
         elif cmd == "tail":
             output["output"] += tail.__doc__
 
@@ -3098,7 +3136,7 @@ if __name__ == "__main__":
                     
                     # Making sure valid command
                     if command.get("cmd") not in available_commands:
-                        result["error"] = f"Error. command '{command.get('excmd')}' is not in list of avaiable commands."
+                        result["error"] = f"Error. command '{command.get("cmd")}' is not in list of avaiable commands."
                         
                     # If there is output in the previous command and command has not input
                     # make the output to the previous command the input to the next
@@ -3119,6 +3157,8 @@ if __name__ == "__main__":
                         result = pwd_()
                     elif command.get("cmd") == "mkdir":
                         result = mkdir(command)
+                    elif command.get("cmd") == "head":
+                        result = head(command)
                     elif command.get("cmd") == "history":
                         result = history(command)
                     elif command.get("cmd") == "cat":
