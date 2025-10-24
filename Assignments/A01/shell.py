@@ -886,49 +886,70 @@ def cat(parts):
     '''
     Usage: cat [FILE]...
 
-    Example:
-        cat f - g   Output f's contents, then standard input, then g's contents.
-        cat         Copy standard input to standard output.
+    Examples:
+        cat f - g    # Output f's contents, then standard input, then g's contents.
+        cat          # Copy standard input to standard output.
     '''
-    
-    # Getting parsed parts
-    input = parts.get("input", None)
-    flags = parts.get("flags", None)
-    params = parts.get("params", None)
-    
-    # Dictionary to return
+    import sys
+    from colorama import Fore, Style
+
+    # Parsed parts
+    # NOTE: We allow stdin/pipes, so we do NOT reject 'input' anymore.
+    flags  = parts.get("flags", None)
+    params = parts.get("params", None)  # list of filenames or None
+
+    # Return dict
     output = {"output": None, "error": None}
 
-    # Catching bad commands
-    if input or flags:
-        output["error"] = f"{Fore.RED}Error: 'cat' should not have input or flags.{Style.RESET_ALL}\nRun 'cat --help' for more info."
+    # 'cat' has no flags in this assignment
+    if flags:
+        output["error"] = (
+            f"{Fore.RED}Error: 'cat' should not have flags."
+            f"{Style.RESET_ALL}\nRun 'cat --help' for more info."
+        )
         return output
-    
-    # if no params, set file to None and read from stdin, else read file
-    if not params:
-        file = None
-    else:
-        file = params
 
-     #if no file provided, read from stdin once
-    if not file:
-        output["output"] = sys.stdin.read()
-        return output
-    
-    # Loop through files and read them
-    for f in file:
-        if f == '-':
-            #read from standard input here
-            output["output"] = sys.stdin.read()
-        else:
+    files = params or []  # [] means: read from stdin
+
+    # Read stdin ONCE if we will need it (no args OR '-' present)
+    need_stdin = (len(files) == 0) or ('-' in files)
+    stdin_text = None
+    if need_stdin:
+        try:
+            stdin_text = sys.stdin.read()
+        except Exception as e:
+            # If stdin isn't available, just treat as empty
+            stdin_text = ""
+
+    chunks = []
+
+    if not files:
+        # No params => just stdin
+        chunks.append(stdin_text or "")
+    else:
+        # Loop through all files in order and append contents
+        for f in files:
+            if f == "-":
+                # Insert stdin in-place
+                chunks.append(stdin_text or "")
+                continue
             try:
-                with open(f,'r') as file_handle:
-                    output["output"] = file_handle.read()
+                with open(f, "r", encoding="utf-8", errors="replace") as fh:
+                    chunks.append(fh.read())
             except FileNotFoundError:
-                output["error"] = f"cat: {f}: No such file or directory\n"
+                msg = f"cat: {f}: No such file or directory\n"
+                output["error"] = (output["error"] or "") + msg
+            except IsADirectoryError:
+                msg = f"cat: {f}: Is a directory\n"
+                output["error"] = (output["error"] or "") + msg
             except Exception as e:
-                output["error"] = f"cat: {f}: {str(e)}\n"
+                msg = f"cat: {f}: {str(e)}\n"
+                output["error"] = (output["error"] or "") + msg
+
+    # Join once at the end (fixes the overwrite bug)
+    output["output"] = "".join(chunks)
     return output
+
 
 def head(parts):
     '''
