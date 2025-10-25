@@ -1,0 +1,12 @@
+time,event,event_type,process,device,ready_queue,wait_queue,cpus,ios
+12,1 added to ready queue,enqueue,1,,['1'],[],[None],[None]
+12,1 dispatched to CPU0,dispatch_cpu,1,CPU0,[],[],['1'],[None]
+19,1 finished CPU → ready queue,cpu_to_ready,1,CPU0,['1'],[],[None],[None]
+19,1 dispatched to CPU0,dispatch_cpu,1,CPU0,[],[],['1'],[None]
+25,1 finished CPU → ready queue,cpu_to_ready,1,CPU0,['1'],[],[None],[None]
+25,1 dispatched to CPU0,dispatch_cpu,1,CPU0,[],[],['1'],[None]
+36,1 finished CPU → wait queue,cpu_to_io,1,CPU0,[],['1'],[None],[None]
+36,1 dispatched to IO0,dispatch_io,1,IO0,[],[],[None],['1']
+58,1 finished I/O → ready queue,io_to_ready,1,IO0,['1'],[],[None],[None]
+58,1 dispatched to CPU0,dispatch_cpu,1,CPU0,[],[],['1'],[None]
+60,1 finished all bursts,finished,1,CPU0,[],[],[None],[None]
