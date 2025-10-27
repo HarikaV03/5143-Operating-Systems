@@ -1,6 +1,5 @@
-# 5143-OpSys
+# 5143-operating system
 Repository for Advanced Operating Systems class projects.
 
-#### Name: Tim Haxton
-#### Email: tdhaxton1223@my.msutexas.edu
-#### Image: https://avatars.githubusercontent.com/u/157244208?s=400&u=47a644727d165b3533ed3f0b7124896d2c781a7b&v=4
+#### Name: Harika vemulapalli
+#### Email: hvemulapalli0313@my.msutexas.edu
