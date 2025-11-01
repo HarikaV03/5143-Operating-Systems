@@ -5,6 +5,8 @@ import collections
 import json
 import csv
 import config
+from rr import RoundRobinScheduler
+
 
 # ---------------------------------------
 class Scheduler:
@@ -49,7 +51,7 @@ class Scheduler:
         self.events = []  # structured log for export
         self.verbose = verbose  # if True, print log entries to console
         self.processes = processes  # input file of processes
-        self.qualtum = quantum  # time quantum for scheduling (if applicable)
+        self.quantum = quantum  # time quantum for scheduling (if applicable)
 
     def add_process(self, process):
         """
