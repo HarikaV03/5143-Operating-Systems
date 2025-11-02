@@ -66,12 +66,5 @@ CPU-IO-Scheduler/
 ├── scheduler.py
 └── README.md
 
-### Simulation Output
-The simulation collects and reports performance metrics for each scheduling algorithm, including:
-- Average Waiting Time  
-- Average Turnaround Time  
-- CPU Utilization  
-- Throughput  
-- Response Time 
 
 
