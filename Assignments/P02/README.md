@@ -22,6 +22,7 @@ After running simulations, the program outputs results to compare metrics like w
 ## 🧠 Purpose
 The goal of this project is to model how operating systems manage CPU and I/O scheduling and to visualize how different algorithms handle process queues. The findings can be used to better understand the trade-offs in scheduling strategies.
 
+
 ### Project File Overview
 
 | Files / Folders | Description |
@@ -44,11 +45,6 @@ The goal of this project is to model how operating systems manage CPU and I/O sc
 | **README.md** | Project documentation and setup guide. |
 
 ---
-
-
-
-
-
 
 
 ### 🧩 Project Structure
