@@ -7,7 +7,7 @@
 - Harika Vemulapalli  
 
 ---
-## 📘 Overview
+## Overview
 This project simulates CPU and I/O scheduling to analyze how different scheduling algorithms perform under various workloads. The simulation generates random processes and evaluates them using multiple schedulers such as:
 
 - **FCFS (First-Come, First-Served)**
@@ -19,7 +19,7 @@ After running simulations, the program outputs results to compare metrics like w
 
 ---
 
-## 🧠 Purpose
+## Purpose
 The goal of this project is to model how operating systems manage CPU and I/O scheduling and to visualize how different algorithms handle process queues. The findings can be used to better understand the trade-offs in scheduling strategies.
 
 
@@ -42,12 +42,11 @@ The goal of this project is to model how operating systems manage CPU and I/O sc
 | **timelines/** | Contains simulation output files (.csv and .json). |
 | **config.py** | Global configuration variables such as Round Robin quantum and timing values. |
 | **scheduler.py** | The main driver file that runs the entire simulation. |
-| **README.md** | Project documentation and setup guide. |
 
 ---
 
 
-### 🧩 Project Structure
+### Project Structure
 
 CPU-IO-Scheduler/
 ├── cmd_pkg/
@@ -57,11 +56,12 @@ CPU-IO-Scheduler/
 │ ├── iodevice.py
 │ ├── process.py
 │ └── scheduler.py
-│
-├── job_generator/
+├── gen_jobs/
+│ ├── fid
+│ ├── generate_job.py
+│ └── job_classes.json
 ├── job_jsons/
 ├── timelines/
-│
 ├── config.py
 ├── scheduler.py
 └── README.md
