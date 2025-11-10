@@ -119,17 +119,29 @@ def batch_arrivals(n):
     return sorted(times)
 
 
-def generate_arrival_times(mode="hybrid", n=10):
+def zero_arrivals(n):
+    '''
+    All processes arrive at time zero.
+    '''
+    
+    # Returning list of n number of 0's
+    zerolist = [0] * n
+    return zerolist
+
+
+def generate_arrival_times(mode="zero", n=10):
     """
     Wrapper for selecting arrival time generation mode.
-    mode: 'hybrid', 'flow', or 'batch'
+    mode: 'hybrid', 'flow', 'batch', or 'zero'
     """
     if mode == "flow":
         return flow_arrivals(n)
     elif mode == "batch":
         return batch_arrivals(n)
-    else:
+    elif mode == "hybrid":
         return hybrid_arrivals(n)
+    else:
+        return zero_arrivals(n)
 
 
 
@@ -206,6 +218,22 @@ def generate_processes(user_classes, n=100):
     return processes
 
 
+def determine_load(dev_load):
+    if dev_load == "cpu":
+        file = "job_classes_cpu_heavy.json"
+    elif dev_load == "io":
+        file = "job_classes_io_heavy.json"
+    elif dev_load == "balanced":
+        file = "job_classes_balanced.json"
+    elif dev_load == "net":
+        file = "job_classes_net_heavy.json"
+    elif dev_load == "dl":
+        file = "job_classes_dl_ul_heavy.json"
+    else:
+        file = "job_classes.json"
+
+    return file
+
 def parse_value(value):
     """
     Try to convert string to appropriate type since everything read in from command line is a string
@@ -257,10 +285,14 @@ if __name__ == "__main__":
     num_processes = args.get("num_processes", 10)
 
     # Limit is used to restrict the number of processes loaded
-    # Looking for arrival_time = 'hybrid', 'flow', or 'batch'
-    mode = args.get("arrival_time", "hybrid")
+    # Looking for arrival_time = 'hybrid', 'flow', 'batch', or 'zero'
+    mode = args.get("arrival_time", "zero")
 
-    user_classes = load_user_classes("job_classes.json")
+    load = args.get("device_load", "default")
+
+    file = determine_load(load)
+
+    user_classes = load_user_classes(file)
 
     # Generate 10 demo processes
     processes = generate_processes(user_classes, n=num_processes)

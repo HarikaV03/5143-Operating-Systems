@@ -1,4 +1,4 @@
-from scheduler_base import Scheduler
+from .base import Scheduler
 
 
 class RoundRobinScheduler(Scheduler):
@@ -10,7 +10,6 @@ class RoundRobinScheduler(Scheduler):
     def __init__(self, num_cpus=1, num_ios=1, verbose=True, processes=None, quantum=4):
         super().__init__(num_cpus=num_cpus, num_ios=num_ios, verbose=verbose, processes=processes)
         self.name = "Round Robin"
-        # alias for readability
         self.time_slice = quantum
 
     def step(self):
@@ -70,7 +69,7 @@ class RoundRobinScheduler(Scheduler):
                         device=f"CPU{cpu.cid}",
                     )
 
-        # Run IO logic exactly as in base class
+        
         for dev in self.io_devices:
             proc = dev.tick()
             if proc:

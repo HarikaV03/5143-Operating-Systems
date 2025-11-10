@@ -1,10 +1,14 @@
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
+#from schedulers.base import Scheduler
+#from schedulers.rr import RoundRobinScheduler
 import json
 # import utils
 from process import Process
-import sys
 from utils.clock import Clock
-from scheduler_base import Scheduler
-from utils.rr import RoundRobinScheduler
+from schedulers import Scheduler, RoundRobinScheduler, ShortestJobFirst, ShortestRemainingTimeFirst
+
 
 # ---------------------------------------
 # Load JSON into Process objects
@@ -119,8 +123,12 @@ if __name__ == "__main__":
     cpus = args.get("cpus", 1)
     ios = args.get("ios", 1)
     
-    # List to hold all processes
-    holding_list = []
+    sceduler = args.get("sched", "fcfs")
+    
+    # rr=true to use Round Robin
+    #use_rr = str(args.get("rr", False)).lower() == "true"
+    # quantum size (default 4)
+    quantum = args.get("quantum", 4)
 
     # Run the simulation
     clock = Clock()
@@ -131,13 +139,8 @@ if __name__ == "__main__":
         f"./job_jsons/process_file_{str(file_num).zfill(4)}.json", limit=limit
     )
 
-    # rr=true to use Round Robin
-    use_rr = str(args.get("rr", False)).lower() == "true"
-    # quantum size (default 4)
-    quantum = args.get("quantum", 4)
-
     # Initialize scheduler
-    if use_rr:
+    if sceduler.lower() == "rr":
         print(f"Using Round Robin with quantum={quantum}")
         sched = RoundRobinScheduler(
             num_cpus=cpus,
@@ -146,8 +149,27 @@ if __name__ == "__main__":
             processes=processes,
             quantum=quantum
         )
+        
+    elif sceduler.lower() == "sjf":
+        print("Using Shortest Job First")
+        sched = ShortestJobFirst(
+            num_cpus=cpus,
+            num_ios=ios,
+            verbose=False,
+            processes=processes
+        )
+
+    elif sceduler.lower() == "srtf":
+        print("Using Shortest Remaining Time First")
+        sched = ShortestRemainingTimeFirst(
+            num_cpus=cpus,
+            num_ios=ios,
+            verbose=False,
+            processes=processes
+        )
+        
     else:
-        print("Using Base Scheduler")
+        print("Using First come First Serve")
         sched = Scheduler(
             num_cpus=cpus,
             num_ios=ios,

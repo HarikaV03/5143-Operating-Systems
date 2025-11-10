@@ -1,9 +1,7 @@
 import collections
 import csv
 import json
-from utils.clock import Clock
-from utils.cpu import CPU
-from utils.iodevice import IODevice
+from starter_code.utils import Clock, CPU, IODevice
 # import utils
 
 class Scheduler:

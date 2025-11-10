@@ -1,0 +1,16 @@
+
+Left to do:
+    1. Schedulers
+        -SRTF
+        -Priority
+    2. Simulation
+        - Will need to create script that will run a bunch of different simulations
+        - with different parameters on different files, and output/display info
+        - needed for calculations.
+        - For every change made to the parameters, run every scheduler on it?
+    3. Analyze Results (Avg wait, Turnaround time, etc)
+    4. Write up
+    5. Discussion Questions
+        - Why is it valuable to separate the scheduler logic from the visualization layer?
+        - How could this design be extended to run two schedulers at once (for comparison)?
+        - What information should the visualizer not have access to, and why?
