@@ -7,7 +7,7 @@ import json
 # import utils
 from process import Process
 from utils.clock import Clock
-from schedulers import Scheduler, RoundRobinScheduler, ShortestJobFirst, ShortestRemainingTimeFirst
+from schedulers import Scheduler, RoundRobinScheduler, ShortestJobFirst, ShortestRemainingTimeFirst, PriorityScheduler
 
 
 # ---------------------------------------
@@ -167,6 +167,25 @@ if __name__ == "__main__":
             verbose=False,
             processes=processes
         )
+
+    elif sceduler.lower() == "priority":
+        aging = args.get("aging", False)
+        aging_interval = args.get("aging_interval", 5)
+        aging_delta = args.get("aging_delta", 1)
+        print(
+            f"Using Priority scheduler "
+            f"(aging={aging}, interval={aging_interval}, delta={aging_delta})"
+        )
+        sched = PriorityScheduler(
+            num_cpus=cpus,
+            num_ios=ios,
+            verbose=False,
+            processes=processes,
+            aging=aging,
+            aging_interval=aging_interval,
+            aging_delta=aging_delta,
+        )
+    
         
     else:
         print("Using First come First Serve")
@@ -189,4 +208,4 @@ if __name__ == "__main__":
     # Export structured logs
     sched.export_json(f"./timelines/timeline{str(file_num).zfill(4)}.json")
     sched.export_csv(f"./timelines/timeline{str(file_num).zfill(4)}.csv")
-    clock.reset()
+    clock.reset() 
