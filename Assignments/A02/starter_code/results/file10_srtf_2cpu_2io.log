@@ -1,0 +1,13 @@
+
+=== Simulation with 2 CPU(s) and 2 IO device(s) ===
+Using Shortest Remaining Time First
+Total number of processes to schedule: 10
+
+--- Shortest Remaining Time First Scheduler Statistics ---
+Throughput: 0.03096
+Average Response Time: 14.30
+Context Switches: 86
+CPU Utilization: 0.48
+Average Waiting Time: 10.70
+Average Turnaround Time: 131.20
+

@@ -1,0 +1,13 @@
+
+=== Simulation with 2 CPU(s) and 1 IO device(s) ===
+Using First come First Serve
+Total number of processes to schedule: 25
+
+--- First Come First Serve Scheduler Statistics ---
+Throughput: 0.01944
+Average Response Time: 10.28
+Context Switches: 180
+CPU Utilization: 0.23
+Average Waiting Time: 25.64
+Average Turnaround Time: 690.44
+

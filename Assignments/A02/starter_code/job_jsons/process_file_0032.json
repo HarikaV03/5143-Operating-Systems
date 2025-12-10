@@ -1,0 +1,1224 @@
+[
+  {
+    "pid": "1",
+    "class_id": "D",
+    "priority": 6,
+    "cpu_budget": 81,
+    "cpu_used": 81,
+    "bursts": [
+      {
+        "cpu": 3
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 21
+        }
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 4
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 16
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "cpu": 16
+      },
+      {
+        "cpu": 7
+      }
+    ],
+    "arrival_time": 39
+  },
+  {
+    "pid": "2",
+    "class_id": "D",
+    "priority": 3,
+    "cpu_budget": 78,
+    "cpu_used": 78,
+    "bursts": [
+      {
+        "cpu": 17
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 18
+        }
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "cpu": 14
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 15
+        }
+      },
+      {
+        "cpu": 2
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 15
+        }
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 20
+        }
+      },
+      {
+        "cpu": 6
+      }
+    ],
+    "arrival_time": 39
+  },
+  {
+    "pid": "3",
+    "class_id": "D",
+    "priority": 3,
+    "cpu_budget": 83,
+    "cpu_used": 83,
+    "bursts": [
+      {
+        "cpu": 15
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "cpu": 20
+      },
+      {
+        "cpu": 17
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 14
+        }
+      },
+      {
+        "cpu": 15
+      },
+      {
+        "cpu": 10
+      },
+      {
+        "cpu": 2
+      }
+    ],
+    "arrival_time": 41
+  },
+  {
+    "pid": "4",
+    "class_id": "C",
+    "priority": 7,
+    "cpu_budget": 48,
+    "cpu_used": 48,
+    "bursts": [
+      {
+        "cpu": 6
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 14
+        }
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 16
+        }
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 12
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 17
+        }
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 16
+        }
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 12
+        }
+      },
+      {
+        "cpu": 2
+      }
+    ],
+    "arrival_time": 42
+  },
+  {
+    "pid": "5",
+    "class_id": "C",
+    "priority": 7,
+    "cpu_budget": 38,
+    "cpu_used": 38,
+    "bursts": [
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 2
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 17
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 15
+        }
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 14
+        }
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "cpu": 1
+      }
+    ],
+    "arrival_time": 45
+  },
+  {
+    "pid": "6",
+    "class_id": "A",
+    "priority": 4,
+    "cpu_budget": 51,
+    "cpu_used": 51,
+    "bursts": [
+      {
+        "cpu": 10
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "io": {
+          "type": "DISK_WRITE",
+          "duration": 17
+        }
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 14
+      },
+      {
+        "cpu": 3
+      }
+    ],
+    "arrival_time": 45
+  },
+  {
+    "pid": "7",
+    "class_id": "D",
+    "priority": 5,
+    "cpu_budget": 35,
+    "cpu_used": 35,
+    "bursts": [
+      {
+        "cpu": 8
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 21
+        }
+      },
+      {
+        "cpu": 19
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 10
+        }
+      },
+      {
+        "cpu": 8
+      }
+    ],
+    "arrival_time": 45
+  },
+  {
+    "pid": "8",
+    "class_id": "D",
+    "priority": 5,
+    "cpu_budget": 67,
+    "cpu_used": 67,
+    "bursts": [
+      {
+        "cpu": 11
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 24
+        }
+      },
+      {
+        "cpu": 1
+      },
+      {
+        "cpu": 12
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 12
+        }
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "cpu": 14
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 24
+        }
+      },
+      {
+        "cpu": 12
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 17
+        }
+      },
+      {
+        "cpu": 9
+      }
+    ],
+    "arrival_time": 46
+  },
+  {
+    "pid": "9",
+    "class_id": "D",
+    "priority": 3,
+    "cpu_budget": 68,
+    "cpu_used": 68,
+    "bursts": [
+      {
+        "cpu": 10
+      },
+      {
+        "cpu": 9
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 30
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 17
+      }
+    ],
+    "arrival_time": 47
+  },
+  {
+    "pid": "10",
+    "class_id": "D",
+    "priority": 6,
+    "cpu_budget": 101,
+    "cpu_used": 101,
+    "bursts": [
+      {
+        "cpu": 16
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "cpu": 10
+      },
+      {
+        "cpu": 12
+      },
+      {
+        "cpu": 9
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 15
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 15
+        }
+      },
+      {
+        "cpu": 14
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 30
+        }
+      },
+      {
+        "cpu": 9
+      },
+      {
+        "cpu": 3
+      }
+    ],
+    "arrival_time": 48
+  },
+  {
+    "pid": "11",
+    "class_id": "B",
+    "priority": 4,
+    "cpu_budget": 15,
+    "cpu_used": 15,
+    "bursts": [
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 3
+      },
+      {
+        "io": {
+          "type": "KEYBOARD_INPUT",
+          "duration": 5
+        }
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "CONSOLE_OUTPUT",
+          "duration": 5
+        }
+      },
+      {
+        "cpu": 3
+      }
+    ],
+    "arrival_time": 48
+  },
+  {
+    "pid": "12",
+    "class_id": "C",
+    "priority": 4,
+    "cpu_budget": 29,
+    "cpu_used": 29,
+    "bursts": [
+      {
+        "cpu": 3
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 22
+        }
+      },
+      {
+        "cpu": 2
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 18
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 1
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 20
+        }
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 7
+      }
+    ],
+    "arrival_time": 48
+  },
+  {
+    "pid": "13",
+    "class_id": "D",
+    "priority": 6,
+    "cpu_budget": 77,
+    "cpu_used": 77,
+    "bursts": [
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 13
+      },
+      {
+        "cpu": 9
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "cpu": 13
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 13
+        }
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 16
+        }
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 13
+        }
+      },
+      {
+        "cpu": 4
+      }
+    ],
+    "arrival_time": 51
+  },
+  {
+    "pid": "14",
+    "class_id": "C",
+    "priority": 4,
+    "cpu_budget": 39,
+    "cpu_used": 39,
+    "bursts": [
+      {
+        "cpu": 5
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 8
+        }
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "cpu": 1
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "cpu": 3
+      }
+    ],
+    "arrival_time": 51
+  },
+  {
+    "pid": "15",
+    "class_id": "C",
+    "priority": 7,
+    "cpu_budget": 28,
+    "cpu_used": 28,
+    "bursts": [
+      {
+        "cpu": 9
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 11
+        }
+      },
+      {
+        "cpu": 3
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 13
+        }
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 3
+      }
+    ],
+    "arrival_time": 53
+  },
+  {
+    "pid": "16",
+    "class_id": "A",
+    "priority": 4,
+    "cpu_budget": 65,
+    "cpu_used": 65,
+    "bursts": [
+      {
+        "cpu": 5
+      },
+      {
+        "io": {
+          "type": "DISK_WRITE",
+          "duration": 27
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 18
+        }
+      },
+      {
+        "cpu": 9
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 9
+      },
+      {
+        "cpu": 10
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "io": {
+          "type": "DISK_WRITE",
+          "duration": 20
+        }
+      },
+      {
+        "cpu": 7
+      }
+    ],
+    "arrival_time": 54
+  },
+  {
+    "pid": "17",
+    "class_id": "A",
+    "priority": 4,
+    "cpu_budget": 55,
+    "cpu_used": 55,
+    "bursts": [
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "io": {
+          "type": "DISK_WRITE",
+          "duration": 8
+        }
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 17
+        }
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "io": {
+          "type": "DISK_WRITE",
+          "duration": 15
+        }
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 14
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 21
+        }
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 17
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 2
+      }
+    ],
+    "arrival_time": 54
+  },
+  {
+    "pid": "18",
+    "class_id": "D",
+    "priority": 4,
+    "cpu_budget": 93,
+    "cpu_used": 91,
+    "bursts": [
+      {
+        "cpu": 1
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 15
+        }
+      },
+      {
+        "cpu": 15
+      },
+      {
+        "cpu": 15
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 16
+        }
+      },
+      {
+        "cpu": 12
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 18
+        }
+      },
+      {
+        "cpu": 10
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 8
+        }
+      },
+      {
+        "cpu": 10
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 19
+        }
+      },
+      {
+        "cpu": 3
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 17
+        }
+      },
+      {
+        "cpu": 12
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 20
+        }
+      }
+    ],
+    "arrival_time": 56
+  },
+  {
+    "pid": "19",
+    "class_id": "D",
+    "priority": 5,
+    "cpu_budget": 92,
+    "cpu_used": 77,
+    "bursts": [
+      {
+        "cpu": 9
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 17
+        }
+      },
+      {
+        "cpu": 9
+      },
+      {
+        "cpu": 3
+      },
+      {
+        "cpu": 9
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "cpu": 9
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 24
+        }
+      },
+      {
+        "cpu": 9
+      },
+      {
+        "cpu": 9
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 11
+        }
+      }
+    ],
+    "arrival_time": 56
+  },
+  {
+    "pid": "20",
+    "class_id": "D",
+    "priority": 6,
+    "cpu_budget": 64,
+    "cpu_used": 64,
+    "bursts": [
+      {
+        "cpu": 7
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 14
+        }
+      },
+      {
+        "cpu": 18
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 18
+        }
+      },
+      {
+        "cpu": 12
+      },
+      {
+        "cpu": 18
+      },
+      {
+        "cpu": 9
+      }
+    ],
+    "arrival_time": 58
+  },
+  {
+    "pid": "21",
+    "class_id": "A",
+    "priority": 1,
+    "cpu_budget": 72,
+    "cpu_used": 72,
+    "bursts": [
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "io": {
+          "type": "DISK_WRITE",
+          "duration": 22
+        }
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "cpu": 13
+      },
+      {
+        "cpu": 10
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 15
+        }
+      },
+      {
+        "cpu": 3
+      },
+      {
+        "io": {
+          "type": "DISK_WRITE",
+          "duration": 19
+        }
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "DISK_WRITE",
+          "duration": 23
+        }
+      },
+      {
+        "cpu": 10
+      },
+      {
+        "io": {
+          "type": "DISK_WRITE",
+          "duration": 22
+        }
+      },
+      {
+        "cpu": 8
+      }
+    ],
+    "arrival_time": 59
+  },
+  {
+    "pid": "22",
+    "class_id": "B",
+    "priority": 3,
+    "cpu_budget": 7,
+    "cpu_used": 7,
+    "bursts": [
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "CONSOLE_OUTPUT",
+          "duration": 3
+        }
+      },
+      {
+        "cpu": 3
+      }
+    ],
+    "arrival_time": 61
+  },
+  {
+    "pid": "23",
+    "class_id": "C",
+    "priority": 6,
+    "cpu_budget": 20,
+    "cpu_used": 20,
+    "bursts": [
+      {
+        "cpu": 3
+      },
+      {
+        "cpu": 3
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 23
+        }
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 2
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 19
+        }
+      },
+      {
+        "cpu": 6
+      }
+    ],
+    "arrival_time": 62
+  },
+  {
+    "pid": "24",
+    "class_id": "D",
+    "priority": 5,
+    "cpu_budget": 68,
+    "cpu_used": 68,
+    "bursts": [
+      {
+        "cpu": 14
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "cpu": 13
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 18
+        }
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "cpu": 15
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 22
+        }
+      },
+      {
+        "cpu": 3
+      }
+    ],
+    "arrival_time": 64
+  },
+  {
+    "pid": "25",
+    "class_id": "D",
+    "priority": 2,
+    "cpu_budget": 121,
+    "cpu_used": 95,
+    "bursts": [
+      {
+        "cpu": 14
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 18
+        }
+      },
+      {
+        "cpu": 10
+      },
+      {
+        "cpu": 15
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 16
+        }
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "cpu": 3
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 8
+        }
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "cpu": 8
+      }
+    ],
+    "arrival_time": 64
+  }
+]

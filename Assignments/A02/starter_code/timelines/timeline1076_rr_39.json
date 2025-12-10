@@ -1,0 +1,6912 @@
+[
+  {
+    "time": 12,
+    "event": "1 added to ready queue",
+    "event_type": "enqueue",
+    "process": "1",
+    "device": null,
+    "ready_queue": [
+      "1"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 12,
+    "event": "1 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "1",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "1",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 16,
+    "event": "1 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "1",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "1"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 16,
+    "event": "1 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "1",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "1"
+    ]
+  },
+  {
+    "time": 20,
+    "event": "1 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "1",
+    "device": "IO0",
+    "ready_queue": [
+      "1"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 20,
+    "event": "1 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "1",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "1",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 24,
+    "event": "1 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "1",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "1"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 24,
+    "event": "1 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "1",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "1"
+    ]
+  },
+  {
+    "time": 28,
+    "event": "2 added to ready queue",
+    "event_type": "enqueue",
+    "process": "2",
+    "device": null,
+    "ready_queue": [
+      "2"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "1"
+    ]
+  },
+  {
+    "time": 28,
+    "event": "1 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "1",
+    "device": "IO0",
+    "ready_queue": [
+      "2",
+      "1"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 28,
+    "event": "2 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "2",
+    "device": "CPU0",
+    "ready_queue": [
+      "1"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      "2",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 28,
+    "event": "1 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "1",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "2",
+      "1"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 32,
+    "event": "2 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "2",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "2"
+    ],
+    "cpus": [
+      null,
+      "1"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 32,
+    "event": "2 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "2",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      "1"
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 33,
+    "event": "1 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "1",
+    "device": "CPU1",
+    "ready_queue": [
+      "1"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 33,
+    "event": "1 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "1",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "1",
+      null
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 34,
+    "event": "1 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "1",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "1"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 36,
+    "event": "2 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "2",
+    "device": "IO0",
+    "ready_queue": [
+      "2"
+    ],
+    "wait_queue": [
+      "1"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 36,
+    "event": "2 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "2",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "1"
+    ],
+    "cpus": [
+      "2",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 36,
+    "event": "1 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "1",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "2",
+      null
+    ],
+    "ios": [
+      "1"
+    ]
+  },
+  {
+    "time": 40,
+    "event": "2 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "2",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "2"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "1"
+    ]
+  },
+  {
+    "time": 40,
+    "event": "1 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "1",
+    "device": "IO0",
+    "ready_queue": [
+      "1"
+    ],
+    "wait_queue": [
+      "2"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 40,
+    "event": "1 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "1",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "2"
+    ],
+    "cpus": [
+      "1",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 40,
+    "event": "2 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "2",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "1",
+      null
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 41,
+    "event": "3 added to ready queue",
+    "event_type": "enqueue",
+    "process": "3",
+    "device": null,
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      "1",
+      null
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 41,
+    "event": "3 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "3",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "1",
+      "3"
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 42,
+    "event": "2 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "2",
+    "device": "IO0",
+    "ready_queue": [
+      "2"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      "1",
+      "3"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 45,
+    "event": "1 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "1",
+    "device": "CPU0",
+    "ready_queue": [
+      "2",
+      "1"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      "3"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 45,
+    "event": "2 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "2",
+    "device": "CPU0",
+    "ready_queue": [
+      "1"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      "2",
+      "3"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 46,
+    "event": "3 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "3",
+    "device": "CPU1",
+    "ready_queue": [
+      "1",
+      "3"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      "2",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 46,
+    "event": "1 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "1",
+    "device": "CPU1",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      "2",
+      "1"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 48,
+    "event": "2 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "2",
+    "device": "CPU0",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "2"
+    ],
+    "cpus": [
+      null,
+      "1"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 48,
+    "event": "1 finished all bursts",
+    "event_type": "finished",
+    "process": "1",
+    "device": "CPU1",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "2"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 48,
+    "event": "3 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "2"
+    ],
+    "cpus": [
+      "3",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 48,
+    "event": "2 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "2",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "3",
+      null
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 50,
+    "event": "3 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "3"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 52,
+    "event": "4 added to ready queue",
+    "event_type": "enqueue",
+    "process": "4",
+    "device": null,
+    "ready_queue": [
+      "4"
+    ],
+    "wait_queue": [
+      "3"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 52,
+    "event": "2 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "2",
+    "device": "IO0",
+    "ready_queue": [
+      "4",
+      "2"
+    ],
+    "wait_queue": [
+      "3"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 52,
+    "event": "4 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "4",
+    "device": "CPU0",
+    "ready_queue": [
+      "2"
+    ],
+    "wait_queue": [
+      "3"
+    ],
+    "cpus": [
+      "4",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 52,
+    "event": "2 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "2",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "3"
+    ],
+    "cpus": [
+      "4",
+      "2"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 52,
+    "event": "3 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "3",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "4",
+      "2"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 54,
+    "event": "2 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "2",
+    "device": "CPU1",
+    "ready_queue": [
+      "2"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      "4",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 54,
+    "event": "2 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "2",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "4",
+      "2"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 55,
+    "event": "4 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "4",
+    "device": "CPU0",
+    "ready_queue": [
+      "4"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      "2"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 55,
+    "event": "4 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "4",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "4",
+      "2"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 58,
+    "event": "4 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "4",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "4"
+    ],
+    "cpus": [
+      null,
+      "2"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 58,
+    "event": "2 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "2",
+    "device": "CPU1",
+    "ready_queue": [
+      "2"
+    ],
+    "wait_queue": [
+      "4"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 58,
+    "event": "2 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "2",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "4"
+    ],
+    "cpus": [
+      "2",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 60,
+    "event": "5 added to ready queue",
+    "event_type": "enqueue",
+    "process": "5",
+    "device": null,
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "4"
+    ],
+    "cpus": [
+      "2",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 60,
+    "event": "5 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "4"
+    ],
+    "cpus": [
+      "2",
+      "5"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 62,
+    "event": "2 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "2",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "4",
+      "2"
+    ],
+    "cpus": [
+      null,
+      "5"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 65,
+    "event": "5 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "5",
+    "device": "CPU1",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "4",
+      "2"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 65,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "4",
+      "2"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 70,
+    "event": "5 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "4",
+      "2"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 70,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "4",
+      "2"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 72,
+    "event": "6 added to ready queue",
+    "event_type": "enqueue",
+    "process": "6",
+    "device": null,
+    "ready_queue": [
+      "6"
+    ],
+    "wait_queue": [
+      "4",
+      "2"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 72,
+    "event": "6 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "4",
+      "2"
+    ],
+    "cpus": [
+      "5",
+      "6"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 74,
+    "event": "6 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "4",
+      "2",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 75,
+    "event": "5 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "4",
+      "2",
+      "6"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 75,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "4",
+      "2",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 76,
+    "event": "3 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "3",
+    "device": "IO0",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "4",
+      "2",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 76,
+    "event": "3 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "3",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "4",
+      "2",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      "3"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 76,
+    "event": "4 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "4",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "2",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      "3"
+    ],
+    "ios": [
+      "4"
+    ]
+  },
+  {
+    "time": 77,
+    "event": "5 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "2",
+      "6"
+    ],
+    "cpus": [
+      null,
+      "3"
+    ],
+    "ios": [
+      "4"
+    ]
+  },
+  {
+    "time": 77,
+    "event": "4 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "4",
+    "device": "IO0",
+    "ready_queue": [
+      "5",
+      "4"
+    ],
+    "wait_queue": [
+      "2",
+      "6"
+    ],
+    "cpus": [
+      null,
+      "3"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 77,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "4"
+    ],
+    "wait_queue": [
+      "2",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      "3"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 77,
+    "event": "2 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "2",
+    "device": "IO0",
+    "ready_queue": [
+      "4"
+    ],
+    "wait_queue": [
+      "6"
+    ],
+    "cpus": [
+      "5",
+      "3"
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 81,
+    "event": "3 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "3",
+    "device": "CPU1",
+    "ready_queue": [
+      "4",
+      "3"
+    ],
+    "wait_queue": [
+      "6"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 81,
+    "event": "4 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "4",
+    "device": "CPU1",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "6"
+    ],
+    "cpus": [
+      "5",
+      "4"
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 82,
+    "event": "5 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "3",
+      "5"
+    ],
+    "wait_queue": [
+      "6"
+    ],
+    "cpus": [
+      null,
+      "4"
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 82,
+    "event": "2 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "2",
+    "device": "IO0",
+    "ready_queue": [
+      "3",
+      "5",
+      "2"
+    ],
+    "wait_queue": [
+      "6"
+    ],
+    "cpus": [
+      null,
+      "4"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 82,
+    "event": "3 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [
+      "5",
+      "2"
+    ],
+    "wait_queue": [
+      "6"
+    ],
+    "cpus": [
+      "3",
+      "4"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 82,
+    "event": "6 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "6",
+    "device": "IO0",
+    "ready_queue": [
+      "5",
+      "2"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      "3",
+      "4"
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 85,
+    "event": "4 finished all bursts",
+    "event_type": "finished",
+    "process": "4",
+    "device": "CPU1",
+    "ready_queue": [
+      "5",
+      "2"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      "3",
+      null
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 85,
+    "event": "5 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU1",
+    "ready_queue": [
+      "2"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      "3",
+      "5"
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 86,
+    "event": "6 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "6",
+    "device": "IO0",
+    "ready_queue": [
+      "2",
+      "6"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      "3",
+      "5"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 87,
+    "event": "3 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [
+      "2",
+      "6",
+      "3"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      "5"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 87,
+    "event": "2 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "2",
+    "device": "CPU0",
+    "ready_queue": [
+      "6",
+      "3"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      "2",
+      "5"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 88,
+    "event": "5 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "5",
+    "device": "CPU1",
+    "ready_queue": [
+      "6",
+      "3"
+    ],
+    "wait_queue": [
+      "5"
+    ],
+    "cpus": [
+      "2",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 88,
+    "event": "6 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "5"
+    ],
+    "cpus": [
+      "2",
+      "6"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 88,
+    "event": "5 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "5",
+    "device": "IO0",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      "2",
+      "6"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 90,
+    "event": "2 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "2",
+    "device": "CPU0",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "2"
+    ],
+    "cpus": [
+      null,
+      "6"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 90,
+    "event": "3 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "2"
+    ],
+    "cpus": [
+      "3",
+      "6"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 91,
+    "event": "7 added to ready queue",
+    "event_type": "enqueue",
+    "process": "7",
+    "device": null,
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "2"
+    ],
+    "cpus": [
+      "3",
+      "6"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 91,
+    "event": "6 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "2",
+      "6"
+    ],
+    "cpus": [
+      "3",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 91,
+    "event": "7 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "2",
+      "6"
+    ],
+    "cpus": [
+      "3",
+      "7"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 93,
+    "event": "3 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "2",
+      "6",
+      "3"
+    ],
+    "cpus": [
+      null,
+      "7"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 96,
+    "event": "7 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "7",
+    "device": "CPU1",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 96,
+    "event": "7 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "2",
+      "6",
+      "3"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 97,
+    "event": "8 added to ready queue",
+    "event_type": "enqueue",
+    "process": "8",
+    "device": null,
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 97,
+    "event": "9 added to ready queue",
+    "event_type": "enqueue",
+    "process": "9",
+    "device": null,
+    "ready_queue": [
+      "8",
+      "9"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 97,
+    "event": "8 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [
+      "9"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3"
+    ],
+    "cpus": [
+      "7",
+      "8"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 101,
+    "event": "7 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [
+      "9",
+      "7"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3"
+    ],
+    "cpus": [
+      null,
+      "8"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 101,
+    "event": "9 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "9",
+    "device": "CPU0",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3"
+    ],
+    "cpus": [
+      "9",
+      "8"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 102,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [
+      "7",
+      "8"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3"
+    ],
+    "cpus": [
+      "9",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 102,
+    "event": "7 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU1",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3"
+    ],
+    "cpus": [
+      "9",
+      "7"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 104,
+    "event": "9 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "9",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9"
+    ],
+    "cpus": [
+      null,
+      "7"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 104,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9"
+    ],
+    "cpus": [
+      "8",
+      "7"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 105,
+    "event": "10 added to ready queue",
+    "event_type": "enqueue",
+    "process": "10",
+    "device": null,
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9"
+    ],
+    "cpus": [
+      "8",
+      "7"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 107,
+    "event": "7 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "7",
+    "device": "CPU1",
+    "ready_queue": [
+      "10",
+      "7"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 107,
+    "event": "10 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU1",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9"
+    ],
+    "cpus": [
+      "8",
+      "10"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 108,
+    "event": "8 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "7",
+      "8"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9"
+    ],
+    "cpus": [
+      null,
+      "10"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 108,
+    "event": "7 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9"
+    ],
+    "cpus": [
+      "7",
+      "10"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 109,
+    "event": "7 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      null,
+      "10"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 109,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      "8",
+      "10"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 112,
+    "event": "10 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "10",
+    "device": "CPU1",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 112,
+    "event": "10 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      "8",
+      "10"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 114,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      null,
+      "10"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 114,
+    "event": "10 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "10",
+    "device": "CPU1",
+    "ready_queue": [
+      "8",
+      "10"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 114,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 114,
+    "event": "10 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      "8",
+      "10"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 116,
+    "event": "8 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      null,
+      "10"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 116,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      "8",
+      "10"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 118,
+    "event": "5 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "5",
+    "device": "IO0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "2",
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      "8",
+      "10"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 118,
+    "event": "2 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "2",
+    "device": "IO0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      "8",
+      "10"
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 119,
+    "event": "10 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "10",
+    "device": "CPU1",
+    "ready_queue": [
+      "5",
+      "10"
+    ],
+    "wait_queue": [
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 119,
+    "event": "5 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU1",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      "8",
+      "5"
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 121,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "10",
+      "8"
+    ],
+    "wait_queue": [
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      null,
+      "5"
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 121,
+    "event": "10 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "6",
+      "3",
+      "9",
+      "7"
+    ],
+    "cpus": [
+      "10",
+      "5"
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 123,
+    "event": "10 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "6",
+      "3",
+      "9",
+      "7",
+      "10"
+    ],
+    "cpus": [
+      null,
+      "5"
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 123,
+    "event": "5 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "5",
+    "device": "CPU1",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "6",
+      "3",
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 123,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "6",
+      "3",
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "2"
+    ]
+  },
+  {
+    "time": 124,
+    "event": "2 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "2",
+    "device": "IO0",
+    "ready_queue": [
+      "2"
+    ],
+    "wait_queue": [
+      "6",
+      "3",
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 124,
+    "event": "2 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "2",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "6",
+      "3",
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      "8",
+      "2"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 124,
+    "event": "6 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "6",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "3",
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      "8",
+      "2"
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 126,
+    "event": "2 finished all bursts",
+    "event_type": "finished",
+    "process": "2",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "3",
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 127,
+    "event": "6 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "6",
+    "device": "IO0",
+    "ready_queue": [
+      "6"
+    ],
+    "wait_queue": [
+      "3",
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 127,
+    "event": "6 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "3",
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      "8",
+      "6"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 127,
+    "event": "3 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "3",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      "8",
+      "6"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 128,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      null,
+      "6"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 128,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      "8",
+      "6"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 129,
+    "event": "8 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      null,
+      "6"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 129,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      "8",
+      "6"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 130,
+    "event": "6 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [
+      "6"
+    ],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 130,
+    "event": "6 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      "8",
+      "6"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 134,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5"
+    ],
+    "cpus": [
+      null,
+      "6"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 134,
+    "event": "6 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 134,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 139,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 139,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 141,
+    "event": "8 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 141,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 146,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 146,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 147,
+    "event": "3 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "3",
+    "device": "IO0",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 147,
+    "event": "3 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "3",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      "3"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 147,
+    "event": "9 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "9",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      "3"
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 151,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      null,
+      "3"
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 151,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      "3"
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 152,
+    "event": "3 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "3",
+    "device": "CPU1",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 152,
+    "event": "3 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "3",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      "3"
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 154,
+    "event": "8 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      null,
+      "3"
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 154,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      "3"
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 157,
+    "event": "3 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "3",
+    "device": "CPU1",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 157,
+    "event": "9 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "9",
+    "device": "IO0",
+    "ready_queue": [
+      "3",
+      "9"
+    ],
+    "wait_queue": [
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 157,
+    "event": "3 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "3",
+    "device": "CPU1",
+    "ready_queue": [
+      "9"
+    ],
+    "wait_queue": [
+      "7",
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      "3"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 157,
+    "event": "7 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "7",
+    "device": "IO0",
+    "ready_queue": [
+      "9"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      "3"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 159,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "9",
+      "8"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      null,
+      "3"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 159,
+    "event": "9 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "9",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "9",
+      "3"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 162,
+    "event": "3 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "3",
+    "device": "CPU1",
+    "ready_queue": [
+      "8",
+      "3"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "9",
+      null
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 162,
+    "event": "8 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "9",
+      "8"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 163,
+    "event": "9 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "9",
+    "device": "CPU0",
+    "ready_queue": [
+      "3",
+      "9"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      null,
+      "8"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 163,
+    "event": "3 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [
+      "9"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "3",
+      "8"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 167,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [
+      "9",
+      "8"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "3",
+      null
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 167,
+    "event": "9 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "9",
+    "device": "CPU1",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "3",
+      "9"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 168,
+    "event": "3 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [
+      "8",
+      "3"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      null,
+      "9"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 168,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "8",
+      "9"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 170,
+    "event": "8 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "3",
+      "8"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      null,
+      "9"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 170,
+    "event": "3 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "3",
+      "9"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 172,
+    "event": "9 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "9",
+    "device": "CPU1",
+    "ready_queue": [
+      "8",
+      "9"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "3",
+      null
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 172,
+    "event": "8 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [
+      "9"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "3",
+      "8"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 173,
+    "event": "3 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [
+      "9",
+      "3"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      null,
+      "8"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 173,
+    "event": "9 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "9",
+    "device": "CPU0",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6"
+    ],
+    "cpus": [
+      "9",
+      "8"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 174,
+    "event": "9 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "9",
+    "device": "CPU0",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6",
+      "9"
+    ],
+    "cpus": [
+      null,
+      "8"
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 174,
+    "event": "7 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "7",
+    "device": "IO0",
+    "ready_queue": [
+      "3",
+      "7"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6",
+      "9"
+    ],
+    "cpus": [
+      null,
+      "8"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 174,
+    "event": "3 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "10",
+      "5",
+      "6",
+      "9"
+    ],
+    "cpus": [
+      "3",
+      "8"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 174,
+    "event": "10 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "5",
+      "6",
+      "9"
+    ],
+    "cpus": [
+      "3",
+      "8"
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 177,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [
+      "7",
+      "8"
+    ],
+    "wait_queue": [
+      "5",
+      "6",
+      "9"
+    ],
+    "cpus": [
+      "3",
+      null
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 177,
+    "event": "7 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU1",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "5",
+      "6",
+      "9"
+    ],
+    "cpus": [
+      "3",
+      "7"
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 178,
+    "event": "3 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "5",
+      "6",
+      "9",
+      "3"
+    ],
+    "cpus": [
+      null,
+      "7"
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 178,
+    "event": "10 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [
+      "8",
+      "10"
+    ],
+    "wait_queue": [
+      "5",
+      "6",
+      "9",
+      "3"
+    ],
+    "cpus": [
+      null,
+      "7"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 178,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [
+      "5",
+      "6",
+      "9",
+      "3"
+    ],
+    "cpus": [
+      "8",
+      "7"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 178,
+    "event": "5 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "5",
+    "device": "IO0",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [
+      "6",
+      "9",
+      "3"
+    ],
+    "cpus": [
+      "8",
+      "7"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 182,
+    "event": "7 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "7",
+    "device": "CPU1",
+    "ready_queue": [
+      "10",
+      "7"
+    ],
+    "wait_queue": [
+      "6",
+      "9",
+      "3"
+    ],
+    "cpus": [
+      "8",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 182,
+    "event": "10 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU1",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "6",
+      "9",
+      "3"
+    ],
+    "cpus": [
+      "8",
+      "10"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 183,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [
+      "7",
+      "8"
+    ],
+    "wait_queue": [
+      "6",
+      "9",
+      "3"
+    ],
+    "cpus": [
+      null,
+      "10"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 183,
+    "event": "7 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "6",
+      "9",
+      "3"
+    ],
+    "cpus": [
+      "7",
+      "10"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 185,
+    "event": "10 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "10",
+    "device": "CPU1",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "6",
+      "9",
+      "3",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 185,
+    "event": "8 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "6",
+      "9",
+      "3",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      "8"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 186,
+    "event": "8 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "6",
+      "9",
+      "3",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 186,
+    "event": "8 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "6",
+      "9",
+      "3",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      "8"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 187,
+    "event": "7 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "6",
+      "9",
+      "3",
+      "10"
+    ],
+    "cpus": [
+      null,
+      "8"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 187,
+    "event": "7 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "6",
+      "9",
+      "3",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      "8"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 191,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "6",
+      "9",
+      "3",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 191,
+    "event": "8 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "6",
+      "9",
+      "3",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      "8"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 192,
+    "event": "7 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "6",
+      "9",
+      "3",
+      "10"
+    ],
+    "cpus": [
+      null,
+      "8"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 192,
+    "event": "7 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "6",
+      "9",
+      "3",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      "8"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 193,
+    "event": "7 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "6",
+      "9",
+      "3",
+      "10",
+      "7"
+    ],
+    "cpus": [
+      null,
+      "8"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 195,
+    "event": "5 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "5",
+    "device": "IO0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "6",
+      "9",
+      "3",
+      "10",
+      "7"
+    ],
+    "cpus": [
+      null,
+      "8"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 195,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "6",
+      "9",
+      "3",
+      "10",
+      "7"
+    ],
+    "cpus": [
+      "5",
+      "8"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 195,
+    "event": "6 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "6",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7"
+    ],
+    "cpus": [
+      "5",
+      "8"
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 196,
+    "event": "8 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 196,
+    "event": "8 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7"
+    ],
+    "cpus": [
+      "5",
+      "8"
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 197,
+    "event": "5 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7"
+    ],
+    "cpus": [
+      null,
+      "8"
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 197,
+    "event": "8 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [
+      "5",
+      "8"
+    ],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 197,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 197,
+    "event": "8 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7"
+    ],
+    "cpus": [
+      "5",
+      "8"
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 200,
+    "event": "8 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "8",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7",
+      "8"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 202,
+    "event": "5 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7",
+      "8"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 202,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7",
+      "8"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 203,
+    "event": "5 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7",
+      "8"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 203,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7",
+      "8"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 205,
+    "event": "6 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "6",
+    "device": "IO0",
+    "ready_queue": [
+      "6"
+    ],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7",
+      "8"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 205,
+    "event": "6 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "3",
+      "10",
+      "7",
+      "8"
+    ],
+    "cpus": [
+      "5",
+      "6"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 205,
+    "event": "9 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "9",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "3",
+      "10",
+      "7",
+      "8"
+    ],
+    "cpus": [
+      "5",
+      "6"
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 208,
+    "event": "5 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "3",
+      "10",
+      "7",
+      "8"
+    ],
+    "cpus": [
+      null,
+      "6"
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 208,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "3",
+      "10",
+      "7",
+      "8"
+    ],
+    "cpus": [
+      "5",
+      "6"
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 209,
+    "event": "6 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [
+      "6"
+    ],
+    "wait_queue": [
+      "3",
+      "10",
+      "7",
+      "8"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 209,
+    "event": "6 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "3",
+      "10",
+      "7",
+      "8"
+    ],
+    "cpus": [
+      "5",
+      "6"
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 213,
+    "event": "5 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "3",
+      "10",
+      "7",
+      "8"
+    ],
+    "cpus": [
+      null,
+      "6"
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 213,
+    "event": "6 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "3",
+      "10",
+      "7",
+      "8",
+      "6"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 213,
+    "event": "9 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "9",
+    "device": "IO0",
+    "ready_queue": [
+      "5",
+      "9"
+    ],
+    "wait_queue": [
+      "3",
+      "10",
+      "7",
+      "8",
+      "6"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 213,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "9"
+    ],
+    "wait_queue": [
+      "3",
+      "10",
+      "7",
+      "8",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 213,
+    "event": "9 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "9",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "3",
+      "10",
+      "7",
+      "8",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      "9"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 213,
+    "event": "3 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "3",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "7",
+      "8",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      "9"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 215,
+    "event": "5 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "10",
+      "7",
+      "8",
+      "6"
+    ],
+    "cpus": [
+      null,
+      "9"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 215,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "7",
+      "8",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      "9"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 217,
+    "event": "9 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "9",
+    "device": "CPU1",
+    "ready_queue": [
+      "9"
+    ],
+    "wait_queue": [
+      "10",
+      "7",
+      "8",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 217,
+    "event": "9 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "9",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "7",
+      "8",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      "9"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 220,
+    "event": "5 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "10",
+      "7",
+      "8",
+      "6"
+    ],
+    "cpus": [
+      null,
+      "9"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 220,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "7",
+      "8",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      "9"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 222,
+    "event": "9 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "9",
+    "device": "CPU1",
+    "ready_queue": [
+      "9"
+    ],
+    "wait_queue": [
+      "10",
+      "7",
+      "8",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 222,
+    "event": "9 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "9",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "7",
+      "8",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      "9"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 223,
+    "event": "5 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "7",
+      "8",
+      "6",
+      "5"
+    ],
+    "cpus": [
+      null,
+      "9"
+    ],
+    "ios": [
+      "3"
+    ]
+  },
+  {
+    "time": 225,
+    "event": "3 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "3",
+    "device": "IO0",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "10",
+      "7",
+      "8",
+      "6",
+      "5"
+    ],
+    "cpus": [
+      null,
+      "9"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 225,
+    "event": "3 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "7",
+      "8",
+      "6",
+      "5"
+    ],
+    "cpus": [
+      "3",
+      "9"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 225,
+    "event": "10 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "8",
+      "6",
+      "5"
+    ],
+    "cpus": [
+      "3",
+      "9"
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 226,
+    "event": "9 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "9",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "8",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      "3",
+      null
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 229,
+    "event": "3 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [
+      "3"
+    ],
+    "wait_queue": [
+      "7",
+      "8",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 229,
+    "event": "3 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "8",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      "3",
+      null
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 230,
+    "event": "3 finished all bursts",
+    "event_type": "finished",
+    "process": "3",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "8",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 248,
+    "event": "10 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [
+      "7",
+      "8",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 248,
+    "event": "10 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "8",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      "10",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 248,
+    "event": "7 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "7",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "8",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      "10",
+      null
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 253,
+    "event": "10 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [
+      "8",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 253,
+    "event": "10 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "8",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      "10",
+      null
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 255,
+    "event": "10 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [
+      "8",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 255,
+    "event": "10 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "8",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      "10",
+      null
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 257,
+    "event": "7 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "7",
+    "device": "IO0",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "8",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      "10",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 257,
+    "event": "7 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "8",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      "10",
+      "7"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 257,
+    "event": "8 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "8",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      "10",
+      "7"
+    ],
+    "ios": [
+      "8"
+    ]
+  },
+  {
+    "time": 258,
+    "event": "8 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "8",
+    "device": "IO0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      "10",
+      "7"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 258,
+    "event": "6 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "6",
+    "device": "IO0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "5",
+      "9"
+    ],
+    "cpus": [
+      "10",
+      "7"
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 260,
+    "event": "10 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [
+      "8"
+    ],
+    "wait_queue": [
+      "5",
+      "9",
+      "10"
+    ],
+    "cpus": [
+      null,
+      "7"
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 260,
+    "event": "8 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "5",
+      "9",
+      "10"
+    ],
+    "cpus": [
+      "8",
+      "7"
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 261,
+    "event": "8 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "8",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "5",
+      "9",
+      "10",
+      "8"
+    ],
+    "cpus": [
+      null,
+      "7"
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 262,
+    "event": "7 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "7",
+    "device": "CPU1",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "5",
+      "9",
+      "10",
+      "8"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 262,
+    "event": "6 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "6",
+    "device": "IO0",
+    "ready_queue": [
+      "7",
+      "6"
+    ],
+    "wait_queue": [
+      "5",
+      "9",
+      "10",
+      "8"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 262,
+    "event": "7 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [
+      "6"
+    ],
+    "wait_queue": [
+      "5",
+      "9",
+      "10",
+      "8"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 262,
+    "event": "6 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "5",
+      "9",
+      "10",
+      "8"
+    ],
+    "cpus": [
+      "7",
+      "6"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 262,
+    "event": "5 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "5",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "10",
+      "8"
+    ],
+    "cpus": [
+      "7",
+      "6"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 265,
+    "event": "7 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "10",
+      "8",
+      "7"
+    ],
+    "cpus": [
+      null,
+      "6"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 266,
+    "event": "6 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "10",
+      "8",
+      "7",
+      "6"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 285,
+    "event": "5 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "5",
+    "device": "IO0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "9",
+      "10",
+      "8",
+      "7",
+      "6"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 285,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "10",
+      "8",
+      "7",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 285,
+    "event": "9 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "9",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "8",
+      "7",
+      "6"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 290,
+    "event": "5 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "8",
+      "7",
+      "6",
+      "5"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 303,
+    "event": "9 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "9",
+    "device": "IO0",
+    "ready_queue": [
+      "9"
+    ],
+    "wait_queue": [
+      "10",
+      "8",
+      "7",
+      "6",
+      "5"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 303,
+    "event": "9 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "9",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "8",
+      "7",
+      "6",
+      "5"
+    ],
+    "cpus": [
+      "9",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 303,
+    "event": "10 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "8",
+      "7",
+      "6",
+      "5"
+    ],
+    "cpus": [
+      "9",
+      null
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 307,
+    "event": "9 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "9",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "8",
+      "7",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 322,
+    "event": "10 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [
+      "8",
+      "7",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 322,
+    "event": "10 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "8",
+      "7",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      "10",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 322,
+    "event": "8 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "8",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "6",
+      "5",
+      "9"
+    ],
+    "cpus": [
+      "10",
+      null
+    ],
+    "ios": [
+      "8"
+    ]
+  },
+  {
+    "time": 327,
+    "event": "10 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "6",
+      "5",
+      "9",
+      "10"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "8"
+    ]
+  },
+  {
+    "time": 349,
+    "event": "8 finished all bursts",
+    "event_type": "finished",
+    "process": "8",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "6",
+      "5",
+      "9",
+      "10"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 349,
+    "event": "7 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "7",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "6",
+      "5",
+      "9",
+      "10"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 369,
+    "event": "7 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "7",
+    "device": "IO0",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "6",
+      "5",
+      "9",
+      "10"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 369,
+    "event": "7 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "6",
+      "5",
+      "9",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 369,
+    "event": "6 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "6",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "5",
+      "9",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      "6"
+    ]
+  },
+  {
+    "time": 373,
+    "event": "6 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "6",
+    "device": "IO0",
+    "ready_queue": [
+      "6"
+    ],
+    "wait_queue": [
+      "5",
+      "9",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 373,
+    "event": "6 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "5",
+      "9",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      "6"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 373,
+    "event": "5 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "5",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      "6"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 374,
+    "event": "7 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "9",
+      "10"
+    ],
+    "cpus": [
+      null,
+      "6"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 374,
+    "event": "7 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      "6"
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 376,
+    "event": "6 finished all bursts",
+    "event_type": "finished",
+    "process": "6",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 379,
+    "event": "7 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "9",
+      "10"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 379,
+    "event": "7 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 382,
+    "event": "7 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "10",
+      "7"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 391,
+    "event": "5 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "5",
+    "device": "IO0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "9",
+      "10",
+      "7"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 391,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "9",
+      "10",
+      "7"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 391,
+    "event": "9 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "9",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "7"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 396,
+    "event": "5 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "10",
+      "7"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 396,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "7"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 401,
+    "event": "5 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [
+      "5"
+    ],
+    "wait_queue": [
+      "10",
+      "7"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 401,
+    "event": "5 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "7"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      "9"
+    ]
+  },
+  {
+    "time": 402,
+    "event": "9 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "9",
+    "device": "IO0",
+    "ready_queue": [
+      "9"
+    ],
+    "wait_queue": [
+      "10",
+      "7"
+    ],
+    "cpus": [
+      "5",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 402,
+    "event": "9 dispatched to CPU1",
+    "event_type": "dispatch_cpu",
+    "process": "9",
+    "device": "CPU1",
+    "ready_queue": [],
+    "wait_queue": [
+      "10",
+      "7"
+    ],
+    "cpus": [
+      "5",
+      "9"
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 402,
+    "event": "10 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7"
+    ],
+    "cpus": [
+      "5",
+      "9"
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 403,
+    "event": "5 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "5",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "5"
+    ],
+    "cpus": [
+      null,
+      "9"
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 407,
+    "event": "9 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "9",
+    "device": "CPU1",
+    "ready_queue": [
+      "9"
+    ],
+    "wait_queue": [
+      "7",
+      "5"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 407,
+    "event": "9 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "9",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "5"
+    ],
+    "cpus": [
+      "9",
+      null
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 408,
+    "event": "9 finished all bursts",
+    "event_type": "finished",
+    "process": "9",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "5"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 415,
+    "event": "10 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [
+      "7",
+      "5"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 415,
+    "event": "10 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "7",
+      "5"
+    ],
+    "cpus": [
+      "10",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 415,
+    "event": "7 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "7",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "5"
+    ],
+    "cpus": [
+      "10",
+      null
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 417,
+    "event": "10 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "5",
+      "10"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "7"
+    ]
+  },
+  {
+    "time": 427,
+    "event": "7 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "7",
+    "device": "IO0",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "5",
+      "10"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 427,
+    "event": "7 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "5",
+      "10"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 427,
+    "event": "5 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "5",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 432,
+    "event": "7 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "10"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 432,
+    "event": "7 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 437,
+    "event": "7 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [
+      "7"
+    ],
+    "wait_queue": [
+      "10"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 437,
+    "event": "7 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10"
+    ],
+    "cpus": [
+      "7",
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 439,
+    "event": "7 finished all bursts",
+    "event_type": "finished",
+    "process": "7",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "5"
+    ]
+  },
+  {
+    "time": 443,
+    "event": "5 finished all bursts",
+    "event_type": "finished",
+    "process": "5",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 443,
+    "event": "10 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 461,
+    "event": "10 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 461,
+    "event": "10 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "10",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 466,
+    "event": "10 preempted (RR quantum expired)",
+    "event_type": "preempt_cpu",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 466,
+    "event": "10 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "10",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 467,
+    "event": "10 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 467,
+    "event": "10 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 483,
+    "event": "10 finished I/O \u2192 ready queue",
+    "event_type": "io_to_ready",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 483,
+    "event": "10 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "10",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 487,
+    "event": "10 finished CPU \u2192 ready queue",
+    "event_type": "cpu_to_ready",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [
+      "10"
+    ],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 487,
+    "event": "10 dispatched to CPU0",
+    "event_type": "dispatch_cpu",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      "10",
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 491,
+    "event": "10 finished CPU \u2192 wait queue",
+    "event_type": "cpu_to_io",
+    "process": "10",
+    "device": "CPU0",
+    "ready_queue": [],
+    "wait_queue": [
+      "10"
+    ],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  },
+  {
+    "time": 491,
+    "event": "10 dispatched to IO0",
+    "event_type": "dispatch_io",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      "10"
+    ]
+  },
+  {
+    "time": 505,
+    "event": "10 finished all bursts",
+    "event_type": "finished",
+    "process": "10",
+    "device": "IO0",
+    "ready_queue": [],
+    "wait_queue": [],
+    "cpus": [
+      null,
+      null
+    ],
+    "ios": [
+      null
+    ]
+  }
+]

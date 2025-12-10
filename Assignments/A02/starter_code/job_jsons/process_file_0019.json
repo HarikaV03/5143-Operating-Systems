@@ -1,0 +1,558 @@
+[
+  {
+    "pid": "1",
+    "class_id": "C",
+    "priority": 7,
+    "cpu_budget": 41,
+    "cpu_used": 41,
+    "bursts": [
+      {
+        "cpu": 8
+      },
+      {
+        "cpu": 1
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 21
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 22
+        }
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 1
+      }
+    ],
+    "arrival_time": 7
+  },
+  {
+    "pid": "2",
+    "class_id": "C",
+    "priority": 4,
+    "cpu_budget": 53,
+    "cpu_used": 42,
+    "bursts": [
+      {
+        "cpu": 2
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 10
+        }
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 2
+      },
+      {
+        "cpu": 3
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 14
+        }
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 14
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 3
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 6
+        }
+      },
+      {
+        "cpu": 3
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 15
+        }
+      }
+    ],
+    "arrival_time": 23
+  },
+  {
+    "pid": "3",
+    "class_id": "C",
+    "priority": 2,
+    "cpu_budget": 44,
+    "cpu_used": 44,
+    "bursts": [
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 12
+        }
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 15
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 8
+        }
+      },
+      {
+        "cpu": 2
+      }
+    ],
+    "arrival_time": 36
+  },
+  {
+    "pid": "4",
+    "class_id": "C",
+    "priority": 2,
+    "cpu_budget": 35,
+    "cpu_used": 35,
+    "bursts": [
+      {
+        "cpu": 10
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 13
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 14
+        }
+      },
+      {
+        "cpu": 2
+      }
+    ],
+    "arrival_time": 42
+  },
+  {
+    "pid": "5",
+    "class_id": "C",
+    "priority": 2,
+    "cpu_budget": 32,
+    "cpu_used": 32,
+    "bursts": [
+      {
+        "cpu": 2
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 17
+        }
+      },
+      {
+        "cpu": 3
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 12
+        }
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 20
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 18
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 5
+      }
+    ],
+    "arrival_time": 54
+  },
+  {
+    "pid": "6",
+    "class_id": "D",
+    "priority": 4,
+    "cpu_budget": 91,
+    "cpu_used": 91,
+    "bursts": [
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 12
+      },
+      {
+        "cpu": 10
+      },
+      {
+        "cpu": 12
+      },
+      {
+        "cpu": 12
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 15
+        }
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 9
+      },
+      {
+        "io": {
+          "type": "NETWORK_RECV",
+          "duration": 19
+        }
+      },
+      {
+        "cpu": 10
+      },
+      {
+        "cpu": 6
+      }
+    ],
+    "arrival_time": 66
+  },
+  {
+    "pid": "7",
+    "class_id": "C",
+    "priority": 6,
+    "cpu_budget": 34,
+    "cpu_used": 34,
+    "bursts": [
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 14
+        }
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 16
+        }
+      },
+      {
+        "cpu": 1
+      },
+      {
+        "cpu": 8
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 13
+        }
+      },
+      {
+        "cpu": 1
+      },
+      {
+        "cpu": 1
+      }
+    ],
+    "arrival_time": 74
+  },
+  {
+    "pid": "8",
+    "class_id": "C",
+    "priority": 2,
+    "cpu_budget": 38,
+    "cpu_used": 38,
+    "bursts": [
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 2
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "io": {
+          "type": "SOCKET_WRITE",
+          "duration": 15
+        }
+      },
+      {
+        "cpu": 3
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 14
+        }
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "io": {
+          "type": "SOCKET_READ",
+          "duration": 12
+        }
+      },
+      {
+        "cpu": 6
+      },
+      {
+        "cpu": 3
+      }
+    ],
+    "arrival_time": 84
+  },
+  {
+    "pid": "9",
+    "class_id": "A",
+    "priority": 1,
+    "cpu_budget": 57,
+    "cpu_used": 57,
+    "bursts": [
+      {
+        "cpu": 7
+      },
+      {
+        "cpu": 11
+      },
+      {
+        "io": {
+          "type": "DISK_WRITE",
+          "duration": 24
+        }
+      },
+      {
+        "cpu": 1
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 26
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "io": {
+          "type": "DISK_READ",
+          "duration": 30
+        }
+      },
+      {
+        "cpu": 9
+      },
+      {
+        "cpu": 10
+      },
+      {
+        "io": {
+          "type": "DISK_WRITE",
+          "duration": 19
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "io": {
+          "type": "DISK_WRITE",
+          "duration": 21
+        }
+      },
+      {
+        "cpu": 7
+      },
+      {
+        "io": {
+          "type": "DISK_WRITE",
+          "duration": 24
+        }
+      },
+      {
+        "cpu": 2
+      }
+    ],
+    "arrival_time": 102
+  },
+  {
+    "pid": "10",
+    "class_id": "B",
+    "priority": 3,
+    "cpu_budget": 22,
+    "cpu_used": 22,
+    "bursts": [
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "CONSOLE_OUTPUT",
+          "duration": 8
+        }
+      },
+      {
+        "cpu": 1
+      },
+      {
+        "io": {
+          "type": "KEYBOARD_INPUT",
+          "duration": 5
+        }
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "KEYBOARD_INPUT",
+          "duration": 8
+        }
+      },
+      {
+        "cpu": 4
+      },
+      {
+        "io": {
+          "type": "CONSOLE_OUTPUT",
+          "duration": 3
+        }
+      },
+      {
+        "cpu": 5
+      },
+      {
+        "io": {
+          "type": "CONSOLE_OUTPUT",
+          "duration": 1
+        }
+      },
+      {
+        "cpu": 3
+      },
+      {
+        "cpu": 1
+      }
+    ],
+    "arrival_time": 111
+  }
+]

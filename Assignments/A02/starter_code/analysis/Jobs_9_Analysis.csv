@@ -1,0 +1,34 @@
+Process File: 9      ,      ,                              ,           ,                      ,                 ,                ,                     , 
+Processes: 50        ,      ,                              ,           ,                      ,                 ,                ,                     , 
+Device Load: cpu.    ,      ,                              ,           ,                      ,                 ,                ,                     , 
+Arrival Times: hybrid,      ,                              ,           ,                      ,                 ,                ,                     , 
+                     ,      ,                              ,           ,                      ,                 ,                ,                     , 
+IO's                 , CPU's, Scheduler                    , Throughput, Average Response Time, Context Switches, CPU Utilization, Average Waiting Time, Average Turnaround Time
+1                    , 1    , First Come First Serve       , 0.01525   , 117.00               , 387             , 0.77           , 700.66              , 2107.80
+2                    , 1    , First Come First Serve       , 0.01969   , 141.08               , 387             , 1.00           , 1759.38             , 1881.06
+1                    , 2    , First Come First Serve       , 0.01525   , 12.46                , 387             , 0.20           , 39.84               , 1968.72
+2                    , 2    , First Come First Serve       , 0.03016   , 40.14                , 387             , 0.71           , 230.06              , 944.94
+1                    , 1    , Round Robin                  , 0.01507   , 37.96                , 1359            , 0.76           , 746.44              , 2070.08
+1                    , 1    , Round Robin                  , 0.01521   , 79.46                , 676             , 0.77           , 781.52              , 2053.16
+1                    , 1    , Round Robin                  , 0.01525   , 109.66               , 434             , 0.77           , 704.54              , 2097.66
+2                    , 1    , Round Robin                  , 0.01958   , 41.72                , 1359            , 0.99           , 1666.88             , 1796.78
+2                    , 1    , Round Robin                  , 0.01959   , 85.38                , 676             , 0.99           , 1670.60             , 1804.60
+2                    , 1    , Round Robin                  , 0.01969   , 132.06               , 434             , 1.00           , 1741.92             , 1871.10
+1                    , 2    , Round Robin                  , 0.01525   , 3.96                 , 1359            , 0.18           , 46.38               , 1972.94
+1                    , 2    , Round Robin                  , 0.01525   , 8.30                 , 676             , 0.20           , 45.36               , 1963.52
+1                    , 2    , Round Robin                  , 0.01525   , 12.24                , 434             , 0.19           , 42.30               , 1967.02
+2                    , 2    , Round Robin                  , 0.03014   , 12.42                , 1359            , 0.66           , 246.70              , 938.08
+2                    , 2    , Round Robin                  , 0.03023   , 26.80                , 676             , 0.69           , 247.04              , 934.68
+2                    , 2    , Round Robin                  , 0.03025   , 39.38                , 434             , 0.69           , 232.46              , 943.30
+1                    , 1    , Shortest Job First           , 0.01515   , 243.64               , 387             , 0.77           , 440.40              , 1838.82
+2                    , 1    , Shortest Job First           , 0.01977   , 418.16               , 387             , 1.00           , 1093.94             , 1217.92
+1                    , 2    , Shortest Job First           , 0.01525   , 15.92                , 387             , 0.20           , 25.64               , 1954.42
+2                    , 2    , Shortest Job First           , 0.03027   , 47.02                , 387             , 0.70           , 118.68              , 899.26
+1                    , 1    , Shortest Remaining Time First, 0.01515   , 235.34               , 423             , 0.77           , 418.60              , 1865.02
+2                    , 1    , Shortest Remaining Time First, 0.01946   , 399.50               , 426             , 0.98           , 1109.78             , 1238.28
+1                    , 2    , Shortest Remaining Time First, 0.01525   , 45.58                , 423             , 0.19           , 26.62               , 1954.10
+2                    , 2    , Shortest Remaining Time First, 0.03023   , 63.28                , 466             , 0.72           , 118.08              , 885.66
+1                    , 1    , Priority                     , 0.01519   , 565.96               , 387             , 0.77           , 606.86              , 2026.94
+2                    , 1    , Priority                     , 0.01973   , 1091.22              , 387             , 1.00           , 1178.54             , 1303.96
+1                    , 2    , Priority                     , 0.01522   , 30.88                , 387             , 0.19           , 41.78               , 1984.76
+2                    , 2    , Priority                     , 0.03010   , 157.40               , 387             , 0.67           , 195.38              , 916.02

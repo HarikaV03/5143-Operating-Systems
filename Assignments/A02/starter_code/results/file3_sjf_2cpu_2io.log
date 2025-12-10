@@ -1,0 +1,13 @@
+
+=== Simulation with 2 CPU(s) and 2 IO device(s) ===
+Using Shortest Job First
+Total number of processes to schedule: 10
+
+--- Shortest Job First Scheduler Statistics ---
+Throughput: 0.02457
+Average Response Time: 0.60
+Context Switches: 83
+CPU Utilization: 0.64
+Average Waiting Time: 14.20
+Average Turnaround Time: 282.00
+

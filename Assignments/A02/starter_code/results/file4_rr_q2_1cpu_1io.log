@@ -1,0 +1,13 @@
+
+=== Simulation with 1 CPU(s) and 1 IO device(s) ===
+Using Round Robin with quantum=2
+Total number of processes to schedule: 25
+
+--- Round Robin Scheduler Statistics ---
+Throughput: 0.01246
+Average Response Time: 18.48
+Context Switches: 765
+CPU Utilization: 0.72
+Average Waiting Time: 395.28
+Average Turnaround Time: 1374.32
+

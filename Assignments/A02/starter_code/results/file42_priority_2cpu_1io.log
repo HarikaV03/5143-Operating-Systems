@@ -1,0 +1,13 @@
+
+=== Simulation with 2 CPU(s) and 1 IO device(s) ===
+Using Priority scheduler (aging=False, interval=5, delta=1)
+Total number of processes to schedule: 25
+
+--- Priority Scheduler Statistics ---
+Throughput: 0.01405
+Average Response Time: 22.68
+Context Switches: 208
+CPU Utilization: 0.22
+Average Waiting Time: 42.36
+Average Turnaround Time: 1048.72
+
