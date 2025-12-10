@@ -2,340 +2,292 @@ import pygame
 import pandas as pd
 import ast
 import colorsys
+import math
 
 # Window dimensions
 WIDTH, HEIGHT = 900, 500
 
 
+# -----------------------------
+# Data loading / parsing
+# -----------------------------
+def parse_list(val):
+    """Convert string representation of list into a real Python list."""
+    if isinstance(val, str):
+        val = val.strip()
+        if val == "" or val == "[]":
+            return []
+        try:
+            return ast.literal_eval(val)
+        except Exception:
+            return []
+    if val is None or (isinstance(val, float) and math.isnan(val)):
+        return []
+    return val
+
+
 def load_timeline(timesheet_id):
-    """Load timeline CSV into DataFrame."""
-    
-    # Read CSV file
+    """Load timeline CSV into a DataFrame and normalize types."""
     try:
         df = pd.read_csv(f"./timelines/timeline{timesheet_id}.csv")
-        
-        # Parse list columns
+
+        # Parse list-like columns
         for col in ["ready_queue", "wait_queue", "cpus", "ios"]:
             df[col] = df[col].apply(parse_list)
-            
-        # Ensure process column is string
-        df["process"] = df["process"].astype(str)
+
+        # Normalize the process column to string IDs (or None)
+        def normalize_proc(x):
+            if x is None or (isinstance(x, float) and math.isnan(x)):
+                return None
+            s = str(x)
+            if s.lower() == "none" or s == "":
+                return None
+            try:
+                return str(int(float(s)))
+            except ValueError:
+                return s
+
+        df["process"] = df["process"].apply(normalize_proc)
+
         return df
-    
-    # Error reading CSV file
+
     except FileNotFoundError:
         print(f"Error: The file 'timeline{timesheet_id}.csv' does not exist in the 'timelines' folder.")
-        exit(1)
+        raise SystemExit(1)
 
 
-def parse_list(l):
-    '''Convert string representation of list into Python list.'''
-    try:
-        
-        # Checking if l is a string.
-        # If it is, convert to list using ast.literal_eval
-        # If not, return as is
-        return ast.literal_eval(l) if isinstance(l, str) else l
-    except:
-        return []
-    
-    
 def detect_rr_quantum(df):
-    '''Check if RR scheduler is used and detect quantum values'''
-    
-    # Determining if RR scheduler was ran
+    """Check if RR scheduler is used and detect quantum from preempt/dispatch pairs."""
     RR = any("preempt_cpu" in str(x) for x in df["event_type"])
-    
-    # Set default quantum to None
     quantum_value = None
-    
-    # If using RR, determine quantum value
-    if RR:
-        
-        # Filter info from timesheet to retrieve quantum
-        rr_events = df[df["event_type"] == "preempt_cpu"]
 
-        # Iterate through preemptions to find quantum
+    if RR:
+        rr_events = df[df["event_type"] == "preempt_cpu"]
         for _, preempt_row in rr_events.iterrows():
-            
-            # Separate info
             proc_id = preempt_row["process"]
             preempt_time = preempt_row["time"]
-        
-            # Find the last dispatch for this process before this preemption
-            dispatch_rows = df[(df["process"] == proc_id) & 
-                             (df["event_type"] == "dispatch_cpu") & 
-                             (df["time"] < preempt_time)]
-        
-            # If found, calculate quantum and break
+
+            dispatch_rows = df[
+                (df["process"] == proc_id)
+                & (df["event_type"] == "dispatch_cpu")
+                & (df["time"] < preempt_time)
+            ]
+
             if not dispatch_rows.empty:
                 dispatch_time = dispatch_rows["time"].max()
                 quantum_value = preempt_time - dispatch_time
                 break
-            
-    # Return RR status and quantum value
-    return RR, quantum_value
-        
 
+    return RR, quantum_value
+
+
+# -----------------------------
+# Pygame setup & layout
+# -----------------------------
 def init_pygame():
-    '''Initialize Pygame.'''
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("OS Scheduling Simulation")
+    pygame.display.set_caption("OS Scheduler Visualizer")
     clock = pygame.time.Clock()
     return screen, clock
 
 
 def build_boxes(df):
-    '''Build boxes dictionary based on CPUs and IOs in timeline.'''
-    
-    # Determining number of CPUs and IOs
-    # Finding the length of the first row's cpus and ios lists
+    """Build boxes dictionary based on CPUs and IOs in timeline."""
     cpu_count = len(df["cpus"].iloc[0])
     io_count = len(df["ios"].iloc[0])
-    
-    # Building boxes dict
+
     boxes = {
         "Ready": (50, 50, 250, 75),
         "Wait": (600, 50, 250, 75),
         "Finished": (50, 410, 800, 75),
     }
 
-    # Base positions
-    cpu_start_x, cpu_y = 200, 150
-    io_start_x, io_y = 200, 300
+    cpu_start_x, cpu_y = 240, 150
+    io_start_x, io_y = 240, 300
     box_w, box_h = 100, 100
     gap = 150
 
-    # Add CPU boxes
     for i in range(cpu_count):
         boxes[f"CPU {i}"] = (cpu_start_x + i * gap, cpu_y, box_w, box_h)
 
-    # Add IO boxes
     for i in range(io_count):
         boxes[f"IO {i}"] = (io_start_x + i * gap, io_y, box_w, box_h)
-        
-    # Return the boxes and counts of CPUs and IOs
+
     return boxes, cpu_count, io_count
 
 
-def generate_colors(n):
-    '''Generate n distinct colors.'''
-    
-    # Using HSV to generate distinct colors
-    # H: hue, S: saturation, V: value (brightness)
-    # H measured in degrees (0-360), S and V in percentage (0-1) 
-    colors = []
-    
-    # Generate colors for each process
-    for i in range(n):
-        hue = i / n
-        r, g, b = colorsys.hsv_to_rgb(hue, 1, 1)
-        colors.append((int(r*255), int(g*255), int(b*255)))
-    return colors
-
-
-def assign_process_colors(df):
-    '''Assign distinct colors to each process.'''
-    
-    # Get each process ID
-    all_procs = sorted(set(df["process"].dropna()))
-    
-    # Generate colors for each process
-    color_list = generate_colors(len(all_procs))
-    
-    # Map process IDs to colors
-    return {p: pygame.Color(*color_list[i]) for i, p in enumerate(all_procs)}
+def get_box_center(boxes, name):
+    x, y, w, h = boxes[name]
+    return (x + w // 2, y + h // 2)
 
 
 def get_queue_positions(boxes, name, items):
-    '''Get the coordiantes of the processes in a queue (box).'''
-    
-    # Get box dimensions
+    """Evenly space items horizontally inside a queue box."""
     x, y, w, h = boxes[name]
-    
-    # Return (x,y) coordinates for each process current in the given queue (box)
-    return [(x + 30 + i*30, y + h//2) for i, proc in enumerate(items)]
-
-
-def get_box_center(boxes, name):
-    '''Get center position of a box.'''
-    
-    x, y, w, h = boxes[name]
-    return (x + w//2, y + h//2)
+    return [(x + 30 + i * 30, y + h // 2) for i, _ in enumerate(items)]
 
 
 def draw_box(screen, boxes, name):
-    '''Draw a box on the screen.'''
-    
-    #BG = (30, 30, 30)
-    
-    # Get box color and text color
     BOX_COLOR = (50, 50, 50)
     TEXT_COLOR = (255, 255, 255)
-    
-    # Get dimentions of box
+
     x, y, w, h = boxes[name]
-    
-    # Draw the box on the screen
     pygame.draw.rect(screen, BOX_COLOR, (x, y, w, h))
     font = pygame.font.SysFont(None, 24)
     label = font.render(name, True, TEXT_COLOR)
     screen.blit(label, (x + 5, y + 5))
 
 
-def move_processes(positions, target_positions, speed):
-    '''Move process to different queues.'''
-    
-    # loop through the target positions and move each process towards its target
-    for proc, (tx, ty) in target_positions.items():
-        
-        # Get current position
-        x, y = positions[proc]
-        
-        # Calculate distance to target
-        dx, dy = tx - x, ty - y
-        dist = (dx**2 + dy**2)**0.5
-        
-        # If close enough to target, set it to target position
-        if dist < speed or dist == 0:
-            positions[proc] = (tx, ty)
-            
-        # Else move process towards target one step at a time
-        else:
-            positions[proc] = (x + dx/dist*speed, y + dy/dist*speed)
+# -----------------------------
+# Colors & process drawing
+# -----------------------------
+def generate_colors(n):
+    colors = []
+    for i in range(n):
+        hue = i / max(1, n)
+        r, g, b = colorsys.hsv_to_rgb(hue, 1, 1)
+        colors.append((int(r * 255), int(g * 255), int(b * 255)))
+    return colors
+
+
+def assign_process_colors(df):
+    """Assign distinct colors to each process ID (as strings)."""
+    procs = set()
+
+    # From the 'process' column
+    for p in df["process"]:
+        if p is not None and str(p).lower() != "none":
+            procs.add(str(p))
+
+    # From queue columns
+    for col in ["ready_queue", "wait_queue", "cpus", "ios"]:
+        for lst in df[col]:
+            for p in lst:
+                if p is not None and str(p).lower() != "none":
+                    procs.add(str(p))
+
+    procs = sorted(procs, key=lambda x: int(x))  # nicer order
+
+    color_list = generate_colors(len(procs))
+    return {pid: pygame.Color(*color_list[i]) for i, pid in enumerate(procs)}
 
 
 def draw_processes(screen, positions, process_colors):
-    '''Create the images for the processes'''
-    
-    # Set text color and font for each process's ID number
     TEXT_COLOR = (255, 255, 255)
     font = pygame.font.SysFont(None, 20)
-    
-    # For each process, get their position and draw them.
+
     for proc, (x, y) in positions.items():
-        
-        # Drawing the process on the screen
-        pygame.draw.circle(screen, process_colors[proc], (int(x), int(y)), 12)
-        label = font.render(str(proc), True, TEXT_COLOR)
-        screen.blit(label, (int(x)-6, int(y)-6))
+        proc_str = str(proc)
+        if proc_str not in process_colors:
+            continue
+        pygame.draw.circle(screen, process_colors[proc_str], (int(x), int(y)), 12)
+        label = font.render(proc_str, True, TEXT_COLOR)
+        screen.blit(label, (int(x) - 6, int(y) - 6))
+
+
+# -----------------------------
+# Simulation helpers
+# -----------------------------
+def move_processes(positions, target_positions, speed):
+    """Move each process smoothly toward its target position."""
+    for proc, (tx, ty) in target_positions.items():
+        if proc not in positions:
+            positions[proc] = (tx, ty)
+            continue
+
+        x, y = positions[proc]
+        dx, dy = tx - x, ty - y
+        dist = math.hypot(dx, dy)
+
+        if dist == 0 or dist < speed:
+            positions[proc] = (tx, ty)
+        else:
+            positions[proc] = (x + dx / dist * speed, y + dy / dist * speed)
 
 
 def update_quantum(cpu_quantum, cpu_process, quantum_value, cpu_count):
-    '''Update the quantum counter for each cpu'''
-    
-    # Loop through the CPU's
+    """Update RR quantum counters."""
     for i in range(cpu_count):
-        
-        # Getting the CPU ID
         cpu_name = f"CPU {i}"
-        
-        # If CPU is busy decrement the quantum
         if cpu_process[cpu_name] is not None:
             cpu_quantum[cpu_name] -= 1
-            
-            # If quantum reaches 0, clear the cpu of its process, and reset the quantum
             if cpu_quantum[cpu_name] <= 0:
                 cpu_process[cpu_name] = None
                 cpu_quantum[cpu_name] = quantum_value
 
 
-def update_targets(row, boxes, positions, target_positions, finished_queue, RR, cpu_process, cpu_quantum, quantum_value, cpu_count, io_count):
-    '''Update each queue and get target positions of each process for next draw'''
-    
-    # Ready Queue
-    # For each process in the ready queue, get its target position
-    # zip() is used to pair each process with its corresponding position
-    # ex. [("1", (50, 50)), ("2", (80, 50)), ...]
-    for proc, pos in zip(row["ready_queue"], get_queue_positions(boxes, "Ready", row["ready_queue"])):
-        if proc:
-            # If process is new, initialize its position
-            if proc not in positions:
-                
-                # Initialize position for new process
-                positions[proc] = pos
-                
-            # Update target position so process can move to correct queue
-            target_positions[proc] = pos
+def update_targets(
+    row,
+    boxes,
+    positions,
+    target_positions,
+    finished_queue,
+    RR,
+    cpu_process,
+    cpu_quantum,
+    quantum_value,
+    cpu_count,
+    io_count,
+):
+    """Update target positions based on current timeline row."""
 
-    # Wait Queue
-    for proc, pos in zip(row["wait_queue"], get_queue_positions(boxes, "Wait", row["wait_queue"])):
-        if proc:
-            
-            # If process is new, initialize its position
-            if proc not in positions:
-                
-                # Initialize position for new process
-                positions[proc] = pos
-                
-            # Update target position so process can move to correct queue
-            target_positions[proc] = pos
+    # Ready queue
+    ready_pos = get_queue_positions(boxes, "Ready", row["ready_queue"])
+    for proc, pos in zip(row["ready_queue"], ready_pos):
+        if not proc:
+            continue
+        proc = str(proc)
+        if proc not in positions:
+            positions[proc] = pos
+        target_positions[proc] = pos
+
+    # Wait queue
+    wait_pos = get_queue_positions(boxes, "Wait", row["wait_queue"])
+    for proc, pos in zip(row["wait_queue"], wait_pos):
+        if not proc:
+            continue
+        proc = str(proc)
+        if proc not in positions:
+            positions[proc] = pos
+        target_positions[proc] = pos
 
     # CPUs
-    for i, proc in enumerate(row["cpus"]):
-        # If there's a process, calculate where it needs to be.
-        # If the process doesn't already have a position, initialize at the center
-        # Update the target position to the center to it doesn't move
-        # If we're using RR and the CPU just got a new process, assign it and reset quantum
-        
-        # Get CPU name
+    for i in range(cpu_count):
         cpu_name = f"CPU {i}"
-        
-        # If there is a process in the CPU
+        proc = row["cpus"][i] if i < len(row["cpus"]) else None
         if proc:
-            
-            # Calculate the center of the CPU box
+            proc = str(proc)
             center = get_box_center(boxes, cpu_name)
-            
-            # If process is new, initialize its position
             if proc not in positions:
                 positions[proc] = center
-                
-            # Set target position for the process to the center of the CPU
             target_positions[proc] = center
-            
-            # If using Round Robin and the proc isn't currently assigned to the CPU
+
             if RR and cpu_process[cpu_name] != proc:
-                
-                # Set the process to the CPU and reset the quantum
                 cpu_process[cpu_name] = proc
                 cpu_quantum[cpu_name] = quantum_value
 
     # IOs
-    for i, proc in enumerate(row["ios"]):
-        
-        # Get ID of io
+    for i in range(io_count):
         io_name = f"IO {i}"
-        
-        # If there is a process on the current IO
+        proc = row["ios"][i] if i < len(row["ios"]) else None
         if proc:
-            
-            # Calculate the center of the IO box
+            proc = str(proc)
             center = get_box_center(boxes, io_name)
-            
-            # if process is new, initialize its postition to center
             if proc not in positions:
                 positions[proc] = center
-                
-            # Set target position for process to center of IO
             target_positions[proc] = center
 
     # Finished queue
-    # If a process has finished, add it to the finished_queue
     if "finished all bursts" in str(row["event"]):
-        proc = str(int(float(row["process"])))
+        proc = str(row["process"])
         if proc not in finished_queue:
             finished_queue.append(proc)
-            
-    # Looping through the processes in the finished queue and their positions
-    for proc, pos in zip(finished_queue, get_queue_positions(boxes, "Finished", finished_queue)):
-        
-        # If process is new, initialize its position to finished queue
+
+    finished_pos = get_queue_positions(boxes, "Finished", finished_queue)
+    for proc, pos in zip(finished_queue, finished_pos):
         if proc not in positions:
             positions[proc] = pos
-            
-        # Set the target position to the finished queue
         target_positions[proc] = pos
 
 
@@ -345,180 +297,125 @@ def update_targets(row, boxes, positions, target_positions, finished_queue, RR, 
 def main():
     BG = (30, 30, 30)
     TEXT_COLOR = (255, 255, 255)
-    
-    # Getting timesheet ID from user
+
     timesheet = input("Enter timesheet ID (ex. 0001): ")
-    
-    # Load that timeline into DataFrame
+
     df = load_timeline(timesheet)
-    
-    # Determine if RR scheduler and what quantum is
     RR, quantum_value = detect_rr_quantum(df)
-    
-    # Create boxes based on CPUs and IOs
     boxes, cpu_count, io_count = build_boxes(df)
-    
-    # Assign colors to processes
     process_colors = assign_process_colors(df)
 
-    positions = {}          # Current positions of processes
-    target_positions = {}   # Target positions of processes
-    speed = 30              # Movement speed of processes
-    finished_queue = []     # List of finished processes
+    positions = {}
+    target_positions = {}
+    finished_queue = []
 
-    cpu_quantum = {}        # Remaining quantum per CPU
-    cpu_process = {}        # Current process on each CPU
-    
-    # Initialize CPU quantum and process tracking if RR
-    if RR:
+    speed = 6            # movement speed of circles
+    frames_per_tick = 32 # how many frames per simulated time unit
+
+    cpu_quantum = {}
+    cpu_process = {}
+    if RR and quantum_value is not None:
         cpu_quantum = {f"CPU {i}": quantum_value for i in range(cpu_count)}
         cpu_process = {f"CPU {i}": None for i in range(cpu_count)}
 
     screen, clock = init_pygame()
 
-    sim_time = 1            # Start at time 1 to match timeline
-    frame = 0               # DataFrame row index
-    frames_per_tick = 20    # Adjust for speed of simulation
-    tick_counter = 0        # Counts frames for timing
+    sim_time = 0
+    frame = 0
+    tick_counter = 0
     running = True
     paused = False
-    
-    # Button setup
-    inc_speed_btn = pygame.Rect(50, 212, 10, 10)
-    dec_speed_btn = pygame.Rect(60, 212, 10, 10)
-    inc_clock_btn = pygame.Rect(50, 250, 10, 10)
-    dec_clock_btn = pygame.Rect(60, 250, 10, 10)
 
-
-    # Simulation Loop
     while running:
         clock.tick(30)  # FPS
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-                
+
             if event.type == pygame.KEYDOWN:
-                # Timer speed controls
-                if event.key == pygame.K_w:
-                    # Increase timer speed
-                    speed = min(speed + 1, 150)
-                elif event.key == pygame.K_e:
-                    # Decrease timer speed
-                    speed = max(speed - 1, 1)
-                    
-                # Clock speed controls
-                elif event.key == pygame.K_s:
-                    # Increase timer speed
-                    frames_per_tick -= 1
-                elif event.key == pygame.K_d:
-                    # Decrease timer speed
-                    frames_per_tick += 1
-                    
-                # Stop Simulation
-                elif event.key == pygame.K_q:
+                if event.key == pygame.K_q:
                     running = False
-                  
-                # Pause simulation
                 elif event.key == pygame.K_p:
                     paused = not paused
-                
+                elif event.key == pygame.K_w:  # increase move speed
+                    speed = min(speed + 1, 60)
+                elif event.key == pygame.K_e:  # decrease move speed
+                    speed = max(speed - 1, 1)
+                elif event.key == pygame.K_s:  # faster sim time
+                    frames_per_tick = max(1, frames_per_tick - 1)
+                elif event.key == pygame.K_d:  # slower sim time
+                    frames_per_tick = min(120, frames_per_tick + 1)
 
-        # Clear screen
         screen.fill(BG)
-        
-        # Only update simulation if not paused
-        if not paused:
 
-            # Update simulation time
+        if not paused:
             tick_counter += 1
             if tick_counter >= frames_per_tick:
-                sim_time += 1
                 tick_counter = 0
-                
-                # Update CPU quantums if RR
-                if RR:
+                sim_time += 1
+
+                if RR and quantum_value is not None:
                     update_quantum(cpu_quantum, cpu_process, quantum_value, cpu_count)
 
-            # Update target positions for all rows whose time == sim_time
+            # apply all events up to current time
             while frame < len(df) and df.iloc[frame]["time"] <= sim_time:
-                update_targets(df.iloc[frame], boxes, positions, target_positions, finished_queue, 
-                             RR, cpu_process, cpu_quantum, quantum_value, cpu_count, io_count)
+                update_targets(
+                    df.iloc[frame],
+                    boxes,
+                    positions,
+                    target_positions,
+                    finished_queue,
+                    RR,
+                    cpu_process,
+                    cpu_quantum,
+                    quantum_value,
+                    cpu_count,
+                    io_count,
+                )
                 frame += 1
 
-            # Draw boxes
-            for name in boxes: 
+            # draw layout
+            for name in boxes:
                 draw_box(screen, boxes, name)
 
-            # Move and draw processes
+            # animate movement + draw processes
             move_processes(positions, target_positions, speed)
             draw_processes(screen, positions, process_colors)
-            
-            # Draw CPU quantum labels
-            if RR:
+
+            # RR quantum labels
+            if RR and quantum_value is not None:
                 font = pygame.font.SysFont(None, 20)
                 y_offset = 150
                 for cpu_name, remaining in cpu_quantum.items():
-                    label = font.render(f"{cpu_name} Quantum: {remaining}", True, TEXT_COLOR)
-                    screen.blit(label, (WIDTH - 200, y_offset))
-                    y_offset += 25
+                    label = font.render(f"{cpu_name} Q: {remaining}", True, TEXT_COLOR)
+                    screen.blit(label, (WIDTH - 160, y_offset))
+                    y_offset += 20
 
-            # Draw current time
+            # time at top
             font = pygame.font.SysFont(None, 36)
             time_label = font.render(f"Time: {sim_time}", True, TEXT_COLOR)
-            screen.blit(time_label, (WIDTH//2 - 50, 10))
-            
-            # Draw Movement/Clock speed
-            font = pygame.font.SysFont(None, 20)
-            speed_label = font.render(f"Movement Speed: {speed}", True, TEXT_COLOR)
-            #screen.blit(speed_label, (WIDTH//2 - 50, 40))
-            screen.blit(speed_label, (35, 200))
-            
-            # Dashes for speeds
-            font = pygame.font.SysFont(None, 20)
-            speed_dash = font.render(f"---------------------------------", True, TEXT_COLOR)
-            screen.blit(speed_dash, (35, 210))
-            
-            font = pygame.font.SysFont(None, 20)
-            clock_dash = font.render(f"--------------------------", True, TEXT_COLOR)
-            screen.blit(clock_dash, (35, 280))
-            
-            font = pygame.font.SysFont(None, 20)
-            clock_label = font.render(f"Clock Speed: {frames_per_tick}", True, TEXT_COLOR)
-            #screen.blit(speed_label, (WIDTH//2 - 50, 60))
-            screen.blit(clock_label, (35, 270))
+            screen.blit(time_label, (WIDTH // 2 - 60, 10))
 
-            # Inc/Dec process speed
+            # left-side controls panel (like your original screenshot)
             font = pygame.font.SysFont(None, 20)
-            inc_speed = font.render(f"w -increase", True, TEXT_COLOR)
-            screen.blit(inc_speed, (35, 220))
-           
-            font = pygame.font.SysFont(None, 20)
-            dec_speed = font.render(f"e -decrease", True, TEXT_COLOR)
-            screen.blit(dec_speed, (35, 235))
-            
-            # Inc/Dec clock speed
-            font = pygame.font.SysFont(None, 20)
-            inc_clock = font.render(f"s -increase", True, TEXT_COLOR)
-            screen.blit(inc_clock, (35, 290))
-           
-            font = pygame.font.SysFont(None, 20)
-            dec_clock = font.render(f"d -decrease", True, TEXT_COLOR)
-            screen.blit(dec_clock, (35, 305))
-            
-            # Quit/Pause keys
-            font = pygame.font.SysFont(None, 20)
-            inc_clock = font.render(f"q - Quit", True, TEXT_COLOR)
-            screen.blit(inc_clock, (35, 320))
-           
-            font = pygame.font.SysFont(None, 20)
-            dec_clock = font.render(f"p -Pause/Unpause", True, TEXT_COLOR)
-            screen.blit(dec_clock, (35, 335))
-
+            # movement info
+            screen.blit(font.render(f"Movement Speed: {speed}", True, TEXT_COLOR), (70, 200))
+            screen.blit(font.render(f"w -Increase", True, TEXT_COLOR), (70, 220))
+            screen.blit(font.render(f"e -Decrease", True, TEXT_COLOR), (70, 235))
+            # clock info
+            screen.blit(font.render(f"Clock Speed: {frames_per_tick}", True, TEXT_COLOR), (70, 265))
+            screen.blit(font.render(f"s -Increase", True, TEXT_COLOR), (70, 285))
+            screen.blit(font.render(f"d -Decrease", True, TEXT_COLOR), (70, 300))
+            # pause/quit
+            screen.blit(font.render(f"p -Pause/Unpause", True, TEXT_COLOR), (70, 320))
+            screen.blit(font.render(f"q -Quit", True, TEXT_COLOR), (70, 335))
 
             pygame.display.flip()
-        
+
     pygame.quit()
 
 
 if __name__ == "__main__":
     main()
+
